@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Availability extends Model
 {
-    protected $table = 'availability';
-
     protected $fillable = ['day' , 'start_time' , 'end_time' , 'is_closed' , 'available_id' , 'available_type'];
     public function availableable() : MorphTo
     {
