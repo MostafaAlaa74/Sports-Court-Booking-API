@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Court extends Model
 {
-    protected $fillable = ['venerable_id' , 'type' , 'name' , 'hourly_rate'];
+    protected $fillable = ['venue_id' , 'type' , 'name' , 'hourly_rate'];
 
     public function venue() : BelongsTo
     {
