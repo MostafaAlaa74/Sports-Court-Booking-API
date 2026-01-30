@@ -21,7 +21,7 @@ class CourtsController extends Controller
      */
     public function index()
     {
-        return response()->json(Court::all(), 200);
+        return response()->json(Court::with('reviews')->get(), 200);
     }
 
     /**

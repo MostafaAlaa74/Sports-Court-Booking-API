@@ -4,63 +4,45 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\CreateBookingRequest;
+use App\Http\Requests\UpdateBookingRequest;
+use App\Services\Bookings\CreateBookingService;
+use App\Services\Bookings\UpdateBookingService;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class BookingsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct(private CreateBookingService $createBookingService, private UpdateBookingService $updateBookingService) {}
+
     public function index()
     {
-        //
+        return response()->json(Booking::with(['user', 'court'])->get(), 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(CreateBookingRequest $request)
     {
-        //
+        Gate::authorize('create', Booking::class);
+        $booking = $this->createBookingService->store(['validatedData' => $request->validated(), 'user_id' => Auth::id()]);
+        return response()->json($booking, 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function show(Booking $booking)
     {
-        //
+        Gate::authorize('view', $booking);
+        return response()->json($booking->load(['user', 'court']), 200);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Booking $bookings)
+    public function update(UpdateBookingRequest $request, Booking $booking)
     {
-        //
+        Gate::authorize('update', $booking);
+        return $this->updateBookingService->update(['validatedData' => $request->validated(), 'booking' => $booking]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Booking $bookings)
+    public function destroy(Booking $booking)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Booking $bookings)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Booking $bookings)
-    {
-        //
+        Gate::authorize('delete', $booking);
+        $booking->delete();
+        return response()->json(null, 204);
     }
 }

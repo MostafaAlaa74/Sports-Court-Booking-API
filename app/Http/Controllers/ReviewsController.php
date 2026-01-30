@@ -4,63 +4,45 @@ namespace App\Http\Controllers;
 
 use App\Models\Review;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\CreateReviewRequest;
+use App\Http\Requests\UpdateReviewRequest;
+use App\Services\Reviews\CreateReviewService;
+use App\Services\Reviews\UpdateReviewService;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class ReviewsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct(private CreateReviewService $createReviewService, private UpdateReviewService $updateReviewService) {}
+
     public function index()
     {
-        //
+        return response()->json(Review::with('user')->get(), 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(CreateReviewRequest $request)
     {
-        //
+        Gate::authorize('create', Review::class);
+        $review = $this->createReviewService->store(['validatedData' => $request->validated(), 'user_id' => Auth::id()]);
+        return response()->json($review, 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function show(Review $review)
     {
-        //
+        Gate::authorize('view', $review);
+        return response()->json($review->load('user'), 200);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Review $reviews)
+    public function update(UpdateReviewRequest $request, Review $review)
     {
-        //
+        Gate::authorize('update', $review);
+        return $this->updateReviewService->update(['validatedData' => $request->validated(), 'review' => $review]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Review $reviews)
+    public function destroy(Review $review)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Review $reviews)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Review $reviews)
-    {
-        //
+        Gate::authorize('delete', $review);
+        $review->delete();
+        return response()->json(null, 204);
     }
 }

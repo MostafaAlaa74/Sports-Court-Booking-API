@@ -4,63 +4,44 @@ namespace App\Http\Controllers;
 
 use App\Models\Availability;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\CreateAvailabilityRequest;
+use App\Http\Requests\UpdateAvailabilityRequest;
+use App\Services\Availabilities\CreateAvailabilityService;
+use App\Services\Availabilities\UpdateAvailabilityService;
+use Illuminate\Support\Facades\Gate;
 
 class AvailabilitiessController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct(private CreateAvailabilityService $createAvailabilityService, private UpdateAvailabilityService $updateAvailabilityService) {}
+
     public function index()
     {
-        //
+        return response()->json(Availability::all(), 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(CreateAvailabilityRequest $request)
     {
-        //
+        Gate::authorize('create', Availability::class);
+        $availability = $this->createAvailabilityService->store(['validatedData' => $request->validated()]);
+        return response()->json($availability, 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function show(Availability $availability)
     {
-        //
+        Gate::authorize('view', $availability);
+        return response()->json($availability, 200);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Availability $availabilitiess)
+    public function update(UpdateAvailabilityRequest $request, Availability $availability)
     {
-        //
+        Gate::authorize('update', $availability);
+        return $this->updateAvailabilityService->update(['validatedData' => $request->validated(), 'availability' => $availability]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Availability $availabilitiess)
+    public function destroy(Availability $availability)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Availability $availabilitiess)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Availability $availabilitiess)
-    {
-        //
+        Gate::authorize('delete', $availability);
+        $availability->delete();
+        return response()->json(null, 204);
     }
 }
