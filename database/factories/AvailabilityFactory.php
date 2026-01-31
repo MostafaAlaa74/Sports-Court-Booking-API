@@ -26,7 +26,6 @@ class AvailabilityFactory extends Factory
             'day' => $this->faker->dayOfWeek(),
             'start_time' => $start,
             'end_time' => $end,
-            'is_closed' => $this->faker->boolean(20),
             'availableable_id' => $model->id,
             'availableable_type' => $type,
         ];

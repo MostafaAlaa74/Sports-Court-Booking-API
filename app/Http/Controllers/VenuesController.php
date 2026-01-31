@@ -9,19 +9,27 @@ use App\Http\Requests\CreateVenueRequest;
 use App\Http\Requests\UpdateVenueRequest;
 use App\Services\Venues\CreateVenueService;
 use App\Services\Venues\UpdateVenueService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class VenuesController extends Controller
 {
+    //! CRUD Operations
     public function __construct(private CreateVenueService $createVenue, private UpdateVenueService $updateVenue) {}
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $venues = VenueResource::collection(Venue::with('courts')->get());
-        return response()->json($venues, 200);
+        $venues = Venue::query()
+            ->active()
+            ->when($request->search , function ($q) use ($request){
+                $q->search($request->search);
+        })->when($request->openNow , function ($q) use ($request){
+            $q->openNow();
+            })->get();
+        return response()->json( VenueResource::collection($venues), 200);
     }
 
 
@@ -62,5 +70,12 @@ class VenuesController extends Controller
         Gate::authorize('delete', $venue);
         $venue->delete();
         return response()->json(null, 204);
+    }
+
+    //! Additional Operations
+
+    public function search(Request $request)
+    {
+        return VenueResource::collection(Venue::active()->search($request->search)->get());
     }
 }

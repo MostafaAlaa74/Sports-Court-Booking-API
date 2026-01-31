@@ -19,9 +19,8 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LogoutController::class, 'logout'])->middleware('auth:sanctum');
 
-
+Route::get('/venues/search', [VenuesController::class, 'search']);
 Route::apiResource('/venues', VenuesController::class)->middleware('auth:sanctum')->except(['index', 'show']);
-
 Route::apiResource('/venues', VenuesController::class)->only(['index', 'show']);
 
 Route::apiResource('/courts', CourtsController::class)->middleware('auth:sanctum')->except(['index', 'show']);

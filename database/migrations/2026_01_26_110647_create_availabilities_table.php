@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('day');
             $table->time('start_time');
             $table->time('end_time');
-            $table->boolean('is_closed');
+            $table->boolean('is_closed')->default(false);
             $table->integer('availableable_id');
             $table->string('availableable_type');
             $table->timestamps();

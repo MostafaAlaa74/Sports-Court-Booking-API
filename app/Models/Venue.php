@@ -30,4 +30,30 @@ class Venue extends Model
     {
         return $this->morphMany(Review::class, 'reviewable');
     }
+
+    public function scopeActive($query){
+        return $query->whereHas('availabilities', function ($q) {
+            $q->where('is_closed', false);
+        });
+    }
+    public function scopeSearch( $query ,$term)
+    {
+        return $query->where(function ($q) use ($term) {
+            $q->where('name', 'LIKE', "%{$term}%")
+                ->orWhere('governorate', 'LIKE', "%{$term}%");
+        });
+    }
+
+    public function scopeOpenNow($query){
+        $now = \Illuminate\Support\now();
+        $currentDay = $now->day;
+        $currentTime = $now->format('H:i');
+
+        return $query->whereHas('availabilities', function ($q) use ($currentDay, $currentTime) {
+            $q->where('day', $currentDay)
+            ->where('start_time', '<=', $currentTime)
+            ->where('end_time', '>', $currentTime);
+        });
+    }
+
 }
