@@ -2,13 +2,19 @@
 
 namespace App\Services\Bookings;
 
+use App\Http\Resources\BookingResource;
+use Illuminate\Support\Facades\DB;
+
 class UpdateBookingService
 {
     public function update(array $data)
     {
-        $booking = $data['booking'];
-        $booking->update($data['validatedData']);
+        return DB::transaction(function () use ($data) {
+            $booking = $data['booking'];
+            $booking->update($data['validatedData']);
 
-        return response()->json($booking, 200);
+            return new BookingResource($booking->load('court', 'user'));
+        });
+
     }
 }

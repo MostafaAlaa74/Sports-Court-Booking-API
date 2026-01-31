@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\VenueResource;
 use App\Models\Venue;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateVenueRequest;
@@ -18,8 +19,9 @@ class VenuesController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {        // Gate::authorize('viewAny', Venue::class);
-        return response()->json(Venue::with('courts')->get(), 200);
+    {
+        $venues = VenueResource::collection(Venue::with('courts')->get());
+        return response()->json($venues, 200);
     }
 
 
@@ -38,7 +40,8 @@ class VenuesController extends Controller
      */
     public function show(Venue $venue)
     {
-        return response()->json($venue->load('courts'), 200);
+        $venueData = new VenueResource($venue->load('courts'));
+        return response()->json($venueData, 200);
     }
 
     /**
@@ -47,7 +50,8 @@ class VenuesController extends Controller
     public function update(UpdateVenueRequest $request, Venue $venue)
     {
         Gate::authorize('update', $venue);
-        return $this->updateVenue->update(['validatedData' => $request->validated(), 'venue' => $venue]);
+        $venue = $this->updateVenue->update(['validatedData' => $request->validated(), 'venue' => $venue]);
+        return response()->json($venue, 200);
     }
 
     /**

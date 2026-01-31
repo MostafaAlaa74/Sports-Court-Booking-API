@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BookingResource;
 use App\Models\Booking;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateBookingRequest;
@@ -17,7 +18,8 @@ class BookingsController extends Controller
 
     public function index()
     {
-        return response()->json(Booking::with(['user', 'court'])->get(), 200);
+        $bookings = BookingResource::collection(Booking::with(['user', 'court'])->get());
+        return response()->json($bookings, 200);
     }
 
     public function store(CreateBookingRequest $request)
@@ -30,13 +32,15 @@ class BookingsController extends Controller
     public function show(Booking $booking)
     {
         Gate::authorize('view', $booking);
-        return response()->json($booking->load(['user', 'court']), 200);
+        $bookingData = new BookingResource($booking->load(['user', 'court']));
+        return response()->json($bookingData, 200);
     }
 
     public function update(UpdateBookingRequest $request, Booking $booking)
     {
         Gate::authorize('update', $booking);
-        return $this->updateBookingService->update(['validatedData' => $request->validated(), 'booking' => $booking]);
+        $booking = $this->updateBookingService->update(['validatedData' => $request->validated(), 'booking' => $booking]);
+        return response()->json($booking, 200);
     }
 
     public function destroy(Booking $booking)

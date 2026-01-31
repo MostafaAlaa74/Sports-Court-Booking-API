@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ReviewResource;
 use App\Models\Review;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateReviewRequest;
@@ -17,7 +18,7 @@ class ReviewsController extends Controller
 
     public function index()
     {
-        return response()->json(Review::with('user')->get(), 200);
+        return response()->json(new ReviewResource(Review::with('user')->get()), 200);
     }
 
     public function store(CreateReviewRequest $request)

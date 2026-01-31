@@ -2,14 +2,19 @@
 
 namespace App\Services\Venues;
 
+use App\Http\Resources\VenueResource;
 use App\Models\Venue;
+use Illuminate\Support\Facades\DB;
 
 class UpdateVenueService{
 
     public function update(array $data){
-        $data['venue']->update($data['validatedData']);
+        return DB::transaction(function () use ($data) {
+            $venue = $data['venue']->update($data['validatedData']);
 
-        return response()->json( $data['venue'] , 200);
+            return new VenueResource($venue);
+        });
+
     }
 
 }

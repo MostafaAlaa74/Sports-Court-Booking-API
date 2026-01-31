@@ -2,13 +2,19 @@
 
 namespace App\Services\Availabilities;
 
+use App\Http\Resources\AvailabilitiesResource;
+use Illuminate\Support\Facades\DB;
+
 class UpdateAvailabilityService
 {
     public function update(array $data)
     {
-        $availability = $data['availability'];
-        $availability->update($data['validatedData']);
+        return DB::transaction(function () use ($data) {
+            $availability = $data['availability'];
+            $availability->update($data['validatedData']);
 
-        return response()->json($availability, 200);
+            return new AvailabilitiesResource($availability);
+        });
+
     }
 }

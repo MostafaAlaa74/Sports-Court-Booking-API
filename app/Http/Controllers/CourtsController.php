@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CourtResource;
 use App\Models\Court;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCourtRequest;
@@ -21,7 +22,8 @@ class CourtsController extends Controller
      */
     public function index()
     {
-        return response()->json(Court::with('reviews')->get(), 200);
+        $courts = CourtResource::collection(Court::with('reviews' , 'venue')->get());
+        return response()->json($courts, 200);
     }
 
     /**
@@ -39,7 +41,8 @@ class CourtsController extends Controller
      */
     public function show(Court $court)
     {
-        return response()->json($court, 200);
+        $courtData = new CourtResource($court);
+        return response()->json($courtData, 200);
     }
 
     /**
@@ -48,7 +51,8 @@ class CourtsController extends Controller
     public function update(UpdateCourtRequest $request, Court $court)
     {
         Gate::authorize('update', $court);
-        return $this->updateCourtService->update(['validatedData' => $request->validated() , 'court' => $court]);
+        $court = $this->updateCourtService->update(['validatedData' => $request->validated() , 'court' => $court]);
+        return response()->json($court, 200);
     }
 
     /**

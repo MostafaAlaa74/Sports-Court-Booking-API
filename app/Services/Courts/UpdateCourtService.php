@@ -2,17 +2,23 @@
 
 namespace App\Services\Courts;
 
+use App\Http\Resources\CourtResource;
+use Illuminate\Support\Facades\DB;
+
 class UpdateCourtService
 {
 
     public function update(array $data)
     {
-        $court = $data['court'];
-        $validatedData = $data['validatedData'];
+        return DB::transaction(function () use ($data) {
+            $court = $data['court'];
+            $validatedData = $data['validatedData'];
 
-        $court->update($validatedData);
+            $court->update($validatedData);
 
-        return response()->json($court, 200);
+            return  new CourtResource($court->load('venue'));
+        });
+
     }
 
 }

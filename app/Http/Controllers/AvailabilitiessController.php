@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AvailabilitiesResource;
 use App\Models\Availability;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateAvailabilityRequest;
@@ -16,7 +17,8 @@ class AvailabilitiessController extends Controller
 
     public function index()
     {
-        return response()->json(Availability::all(), 200);
+        $availabilities = AvailabilitiesResource::collection(Availability::all());
+        return response()->json($availabilities, 200);
     }
 
     public function store(CreateAvailabilityRequest $request)
@@ -29,13 +31,14 @@ class AvailabilitiessController extends Controller
     public function show(Availability $availability)
     {
         Gate::authorize('view', $availability);
-        return response()->json($availability, 200);
+        return response()->json(new AvailabilitiesResource($availability), 200);
     }
 
     public function update(UpdateAvailabilityRequest $request, Availability $availability)
     {
         Gate::authorize('update', $availability);
-        return $this->updateAvailabilityService->update(['validatedData' => $request->validated(), 'availability' => $availability]);
+        $availabilityData =  $this->updateAvailabilityService->update(['validatedData' => $request->validated(), 'availability' => $availability]);
+        return response()->json($availabilityData, 200);
     }
 
     public function destroy(Availability $availability)
