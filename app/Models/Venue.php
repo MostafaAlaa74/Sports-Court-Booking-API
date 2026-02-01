@@ -46,13 +46,13 @@ class Venue extends Model
 
     public function scopeOpenNow($query){
         $now = \Illuminate\Support\now();
-        $currentDay = $now->day;
-        $currentTime = $now->format('H:i');
+        $currentDay = $now->format('l');
+        $currentTime = $now->format('H:i:s');
 
         return $query->whereHas('availabilities', function ($q) use ($currentDay, $currentTime) {
             $q->where('day', $currentDay)
-            ->where('start_time', '<=', $currentTime)
-            ->where('end_time', '>', $currentTime);
+            ->where('end_time', '>', $currentTime)
+            ->where('start_time', '<', $currentTime);
         });
     }
 

@@ -26,9 +26,10 @@ class VenuesController extends Controller
             ->active()
             ->when($request->search , function ($q) use ($request){
                 $q->search($request->search);
-        })->when($request->openNow , function ($q) use ($request){
+        })->when($request->filter == 'openNow' , function ($q) use ($request){
             $q->openNow();
             })->get();
+
         return response()->json( VenueResource::collection($venues), 200);
     }
 
@@ -72,10 +73,4 @@ class VenuesController extends Controller
         return response()->json(null, 204);
     }
 
-    //! Additional Operations
-
-    public function search(Request $request)
-    {
-        return VenueResource::collection(Venue::active()->search($request->search)->get());
-    }
 }

@@ -16,8 +16,8 @@ class CreateAvailabilityService
                 'start_time' => $data['validatedData']['start_time'],
                 'end_time' => $data['validatedData']['end_time'],
                 'is_closed' => $data['validatedData']['is_closed'] ?? false,
-                'available_id' => $data['validatedData']['available_id'],
-                'available_type' => $data['validatedData']['available_type'],
+                'availableable_id' => $data['validatedData']['availableable_id'],
+                'availableable_type' => $data['validatedData']['availableable_type'],
             ]);
             return new AvailabilitiesResource($availability);
         });

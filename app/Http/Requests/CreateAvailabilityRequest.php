@@ -18,8 +18,8 @@ class CreateAvailabilityRequest extends FormRequest
             'start_time' => 'required',
             'end_time' => 'required',
             'is_closed' => 'sometimes|boolean',
-            'available_id' => 'required',
-            'available_type' => 'required|string'
+            'availableable_id' => 'required',
+            'availableable_type' => 'required|string'
         ];
     }
 }
