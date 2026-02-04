@@ -20,4 +20,23 @@ class Booking extends Model
     {
         return $this->belongsTo(Court::class);
     }
+
+    public function scopeUpcoming($query) {
+        return $query->where('start_time', '>', now())->orderBy('start_time');
+    }
+
+    public function scopePast($query) {
+        return $query->where('end_time', '<', now());
+    }
+
+    public function scopeConfirmed($query) {
+        return $query->where('status', 'confirmed');
+    }
+
+    public function scopeOverlapping($query, $start, $end) {
+        return $query->where(function ($q) use ($start, $end) {
+            $q->where('start_time', '<', $end)
+                ->where('end_time', '>', $start);
+        });
+    }
 }

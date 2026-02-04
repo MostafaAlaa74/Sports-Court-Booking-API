@@ -20,9 +20,18 @@ class CourtsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $courts = CourtResource::collection(Court::with('reviews' , 'venue')->get());
+        $courts = CourtResource::collection(
+            Court::query()->with('reviews' , 'venue')
+                ->when($request->filter_type, function ($query, $type) {
+                    $query->courtType($type);
+                })
+                ->when($request->filter_price_min && $request->filter_price_max, function ($query) use ($request) {
+                    $query->priceRange($request->filter_price_min, $request->filter_price_max);
+                })
+                ->get()
+        );
         return response()->json($courts, 200);
     }
 

@@ -9,6 +9,7 @@ use App\Http\Requests\CreateBookingRequest;
 use App\Http\Requests\UpdateBookingRequest;
 use App\Services\Bookings\CreateBookingService;
 use App\Services\Bookings\UpdateBookingService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -16,9 +17,21 @@ class BookingsController extends Controller
 {
     public function __construct(private CreateBookingService $createBookingService, private UpdateBookingService $updateBookingService) {}
 
-    public function index()
+    public function index(Request $request)
     {
-        $bookings = BookingResource::collection(Booking::with(['user', 'court'])->get());
+//        Gate::authorize('viewAny', Booking::class);
+        $bookings = BookingResource::collection(
+            Booking::query()->
+                with(['user', 'court'])
+                ->when($request->filter_upcoming, function ($query) use ($request) {
+                    $query->upcoming();
+                })->when($request->filter_past, function ($query) use ($request) {
+                    $query->past();
+                })->when($request->filter_confirmed, function ($query) use ($request) {
+                    $query->confirmed();
+                })
+                ->get()
+        );
         return response()->json($bookings, 200);
     }
 

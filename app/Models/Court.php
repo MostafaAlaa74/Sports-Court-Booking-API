@@ -32,4 +32,14 @@ class Court extends Model
     {
         return $this->morphMany(Review::class, 'reviewable');
     }
+
+    public function scopeCourtType($query, $type)
+    {
+        return $query->where('type', $type);
+    }
+
+    public function scopePriceRange($query, $min, $max)
+    {
+        return $query->whereBetween('hourly_rate', [$min, $max]);
+    }
 }
