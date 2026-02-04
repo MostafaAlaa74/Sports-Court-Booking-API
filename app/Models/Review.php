@@ -22,4 +22,8 @@ class Review extends Model
         return $this->morphTo();
     }
 
+    public function scopeRated($query, $rating) {
+        return $query->where('rating', $rating);
+    }
+
 }

@@ -18,7 +18,14 @@ class ReviewsController extends Controller
 
     public function index()
     {
-        return response()->json(new ReviewResource(Review::with('user')->get()), 200);
+        $reviews = Review::query()
+            ->with('user')
+            ->when(request('rating'), function ($query, $rating) {
+                $query->rated($rating);
+            })
+            ->get();
+//        dd($reviews);
+        return response()->json(ReviewResource::collection($reviews), 200);
     }
 
     public function store(CreateReviewRequest $request)
