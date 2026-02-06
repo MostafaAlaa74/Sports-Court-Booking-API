@@ -15,7 +15,7 @@ class CreateBookingRequest extends FormRequest
     {
         return [
             'court_id' => 'required|exists:courts,id',
-            'date' => 'required|date',
+            'date' => 'required|date|after_or_equal:today',
             'start_time' => 'required',
             'end_time' => 'required',
             'status' => 'sometimes|in:pending,confirmed,cancelled'

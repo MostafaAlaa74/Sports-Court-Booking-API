@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\bookingConfirmedEvent;
 use App\Http\Resources\BookingResource;
 use App\Models\Booking;
 use App\Http\Controllers\Controller;
@@ -9,13 +10,23 @@ use App\Http\Requests\CreateBookingRequest;
 use App\Http\Requests\UpdateBookingRequest;
 use App\Services\Bookings\CreateBookingService;
 use App\Services\Bookings\UpdateBookingService;
+use App\Services\Payment\BookingPaymentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
+use Stripe\StripeClient;
 
 class BookingsController extends Controller
 {
-    public function __construct(private CreateBookingService $createBookingService, private UpdateBookingService $updateBookingService) {}
+    public $createBookingService;
+    public $updateBookingService;
+    public $bookingPaymentService;
+    public function __construct() {
+        $this->createBookingService = new CreateBookingService();
+        $this->updateBookingService = new UpdateBookingService();
+        $this->bookingPaymentService = new BookingPaymentService();
+    }
 
     public function index(Request $request)
     {
@@ -61,5 +72,26 @@ class BookingsController extends Controller
         Gate::authorize('delete', $booking);
         $booking->delete();
         return response()->json(null, 204);
+    }
+
+    public function confirm(Booking $booking){
+        $checkout =  $this->bookingPaymentService->confirmBooking($booking);
+
+        return response()->json(['checkout_url' => $checkout], 200);
+    }
+
+    public function checkoutCompleted(Request $request){
+        $session_id = $request->query('session_id');
+        $stripe = new StripeClient(config('stripe.api_key.secret'));
+        $session = $stripe->checkout->sessions->retrieve($session_id);
+        if($session->payment_status == 'paid'){
+            $booking = Booking::findOrFail($request->booking);
+            $booking->update(['status' => 'confirmed']);
+            $data = $booking->load(['user', 'court']);
+            bookingConfirmedEvent::dispatch($data);
+            return view('payment.success', ['booking' => $data]);
+        } else {
+            return response()->json(['message' => 'Payment failed or not completed.'], 400);
+        }
     }
 }
