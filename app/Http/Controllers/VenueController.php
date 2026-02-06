@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
-class VenuesController extends Controller
+class VenueController extends Controller
 {
     //! CRUD Operations
     public function __construct(private CreateVenueService $createVenue, private UpdateVenueService $updateVenue) {}

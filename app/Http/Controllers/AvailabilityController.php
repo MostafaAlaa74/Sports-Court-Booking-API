@@ -11,7 +11,7 @@ use App\Services\Availabilities\CreateAvailabilityService;
 use App\Services\Availabilities\UpdateAvailabilityService;
 use Illuminate\Support\Facades\Gate;
 
-class AvailabilitiessController extends Controller
+class AvailabilityController extends Controller
 {
     public function __construct(private CreateAvailabilityService $createAvailabilityService, private UpdateAvailabilityService $updateAvailabilityService) {}
 

@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
 use Stripe\StripeClient;
 
-class BookingsController extends Controller
+class BookingController extends Controller
 {
     public $createBookingService;
     public $updateBookingService;

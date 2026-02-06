@@ -9,7 +9,7 @@ Route::get('/', function () {
 use Illuminate\Http\Request;
 use App\Models\Booking;
 
-Route::get('/payment/success', [\App\Http\Controllers\BookingsController::class , 'checkoutCompleted'])->name('payment.success');
+Route::get('/payment/success', [\App\Http\Controllers\BookingController::class , 'checkoutCompleted'])->name('payment.success');
 
 // 2. صفحة الفشل
 Route::get('/payment/cancel', function () {

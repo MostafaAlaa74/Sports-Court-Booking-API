@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
-class CourtsController extends Controller
+class CourtController extends Controller
 {
 
     public function __construct(private CreateCourtService $createCourtService , private UpdateCourtService $updateCourtService){}

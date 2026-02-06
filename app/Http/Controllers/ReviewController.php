@@ -12,7 +12,7 @@ use App\Services\Reviews\UpdateReviewService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
-class ReviewsController extends Controller
+class ReviewController extends Controller
 {
     public function __construct(private CreateReviewService $createReviewService, private UpdateReviewService $updateReviewService) {}
 
