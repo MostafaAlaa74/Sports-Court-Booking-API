@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\bookingConfirmedEvent;
 use App\Http\Resources\BookingResource;
+use App\Jobs\BookConfirmedJob;
 use App\Models\Booking;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateBookingRequest;
@@ -11,6 +12,7 @@ use App\Http\Requests\UpdateBookingRequest;
 use App\Services\Bookings\CreateBookingService;
 use App\Services\Bookings\UpdateBookingService;
 use App\Services\Payment\BookingPaymentService;
+use App\Services\Payment\PaymentConfirmationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -30,20 +32,20 @@ class BookingsController extends Controller
 
     public function index(Request $request)
     {
-//        Gate::authorize('viewAny', Booking::class);
-        $bookings = BookingResource::collection(
-            Booking::query()->
-                with(['user', 'court'])
-                ->when($request->filter_upcoming, function ($query) use ($request) {
-                    $query->upcoming();
-                })->when($request->filter_past, function ($query) use ($request) {
-                    $query->past();
-                })->when($request->filter_confirmed, function ($query) use ($request) {
-                    $query->confirmed();
-                })
-                ->get()
-        );
+        if(Auth::user()){
+        $bookings = Booking::query()
+            ->forUser(Auth::user())
+            ->with(['user', 'court'])
+            ->when($request->filter_upcoming, fn($q) => $q->upcoming())
+            ->when($request->filter_past, fn($q) => $q->past())
+            ->when($request->filter_confirmed, fn($q) => $q->confirmed())
+            ->latest()
+            ->paginate(10);
         return response()->json($bookings, 200);
+        }
+        else{
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
     }
 
     public function store(CreateBookingRequest $request)
@@ -75,23 +77,26 @@ class BookingsController extends Controller
     }
 
     public function confirm(Booking $booking){
+        Gate::authorize('confirm', $booking);
         $checkout =  $this->bookingPaymentService->confirmBooking($booking);
 
         return response()->json(['checkout_url' => $checkout], 200);
     }
 
-    public function checkoutCompleted(Request $request){
-        $session_id = $request->query('session_id');
-        $stripe = new StripeClient(config('stripe.api_key.secret'));
-        $session = $stripe->checkout->sessions->retrieve($session_id);
-        if($session->payment_status == 'paid'){
-            $booking = Booking::findOrFail($request->booking);
-            $booking->update(['status' => 'confirmed']);
+    public function checkoutCompleted(Request $request , PaymentConfirmationService $paymentConfirmationService){
+        try {
+
+            $booking = $paymentConfirmationService->verifyAndConfirm(
+                $request->session_id,
+                $request->booking
+            );
             $data = $booking->load(['user', 'court']);
-            bookingConfirmedEvent::dispatch($data);
-            return view('payment.success', ['booking' => $data]);
-        } else {
-            return response()->json(['message' => 'Payment failed or not completed.'], 400);
+            BookConfirmedJob::dispatch($data);
+            return view('payment.success', compact('booking'));
+
+        } catch (\Exception $e) {
+            return view('payment.failed', ['error' => $e->getMessage() , 'booking' => $data]);
         }
     }
 }
+

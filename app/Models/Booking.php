@@ -39,4 +39,16 @@ class Booking extends Model
                 ->where('end_time', '>', $start);
         });
     }
+
+    public function scopeForUser($query , $user){
+        if($user->role === 'admin') {
+            return $query;
+        } elseif ($user->role === 'field_owner') {
+            return $query->whereHas('court', function ($q) use ($user) {
+                $q->where('owner_id', $user->id);
+            });
+        } else {
+            return $query->where('user_id', $user->id);
+        }
+    }
 }

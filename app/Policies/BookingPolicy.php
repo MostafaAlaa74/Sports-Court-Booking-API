@@ -9,7 +9,7 @@ class BookingPolicy
 {
     public function viewAny(User $user): bool
     {
-        return $user->role === 'admin' || $user->role === 'field_owner';
+        return $user->role === 'admin' || $user->role === 'field_owner' || $user->role === 'player';
     }
 
     public function view(User $user, Booking $booking): bool
@@ -30,5 +30,10 @@ class BookingPolicy
     public function delete(User $user, Booking $booking): bool
     {
         return $user->id === $booking->user_id || $user->role === 'admin';
+    }
+
+    public function confirm(User $user, Booking $booking): bool
+    {
+        return $user->id === $booking->user_id || $user->role === 'admin' || $user->role === 'field_owner';
     }
 }

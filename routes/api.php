@@ -19,7 +19,6 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LogoutController::class, 'logout'])->middleware('auth:sanctum');
 
-Route::get('/venues/search', [VenuesController::class, 'search']);
 Route::apiResource('/venues', VenuesController::class)->middleware('auth:sanctum')->except(['index', 'show']);
 Route::apiResource('/venues', VenuesController::class)->only(['index', 'show']);
 
@@ -28,8 +27,7 @@ Route::apiResource('/courts', CourtsController::class)->only(['index', 'show']);
 // Bookings, Reviews, Availabilities
 
 
-Route::apiResource('/bookings', BookingsController::class)->middleware('auth:sanctum')->except(['index', 'show']);
-Route::apiResource('/bookings', BookingsController::class)->only(['index', 'show']);
+Route::apiResource('/bookings', BookingsController::class)->middleware('auth:sanctum');
 Route::post('/bookings/{booking}/confirm', [BookingsController::class, 'confirm']);
 
 Route::apiResource('/reviews', ReviewsController::class)->middleware('auth:sanctum')->except(['index', 'show']);
