@@ -1,0 +1,1761 @@
+name: Endpoints
+description: ''
+endpoints:
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/user
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/register
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        custom: []
+        name: name
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: vmqeopfuudtdsufvyvddq
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      email:
+        custom: []
+        name: email
+        description: 'Must be a valid email address. Must not be greater than 255 characters.'
+        required: true
+        example: kunde.eloisa@example.com
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      password:
+        custom: []
+        name: password
+        description: 'Must be at least 6 characters.'
+        required: true
+        example: '4[*UyPJ"}6'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      role:
+        custom: []
+        name: role
+        description: ''
+        required: true
+        example: admin
+        type: string
+        enumValues:
+          - admin
+          - field_owner
+          - player
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      name: vmqeopfuudtdsufvyvddq
+      email: kunde.eloisa@example.com
+      password: '4[*UyPJ"}6'
+      role: admin
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/login
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        custom: []
+        name: email
+        description: 'Must be a valid email address. The <code>email</code> of an existing record in the users table. Must not be greater than 255 characters.'
+        required: true
+        example: qkunze@example.com
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      password:
+        custom: []
+        name: password
+        description: 'Must be at least 6 characters.'
+        required: true
+        example: 'Z5ij-e/dl4m{o,'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      email: qkunze@example.com
+      password: 'Z5ij-e/dl4m{o,'
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/logout
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/venues
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Store a newly created resource in storage.'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        custom: []
+        name: name
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: vmqeopfuudtdsufvyvddq
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      governorate:
+        custom: []
+        name: governorate
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: amniihfqcoynlazghdtqt
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      name: vmqeopfuudtdsufvyvddq
+      governorate: amniihfqcoynlazghdtqt
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/venues/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Update the specified resource in storage.'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the venue.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        custom: []
+        name: name
+        description: 'Must not be greater than 255 characters.'
+        required: false
+        example: vmqeopfuudtdsufvyvddq
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      governorate:
+        custom: []
+        name: governorate
+        description: 'Must not be greater than 255 characters.'
+        required: false
+        example: amniihfqcoynlazghdtqt
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      name: vmqeopfuudtdsufvyvddq
+      governorate: amniihfqcoynlazghdtqt
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/venues/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Remove the specified resource from storage.'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the venue.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/venues
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display a listing of the resource.'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '[{"id":1,"name":"Brown-Tillman","governorate":"Arizona","Owner":"Rogers Lebsack"},{"id":2,"name":"Ritchie Ltd","governorate":"Missouri","Owner":"Rogers Lebsack"},{"id":29,"name":"VonRueden, Shanahan and Farrell","governorate":"District of Columbia","Owner":"Dr. Ryder Kessler Sr."},{"id":30,"name":"Gorczany, Daniel and Hickle","governorate":"Texas","Owner":"Dr. Ryder Kessler Sr."},{"id":57,"name":"Will-Mayert","governorate":"Alabama","Owner":"Domenico Trantow"},{"id":58,"name":"Wintheiser, Altenwerth and Bernier","governorate":"Virginia","Owner":"Domenico Trantow"}]'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/venues/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display the specified resource.'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the venue.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"id":1,"name":"Brown-Tillman","governorate":"Arizona","Owner":"Rogers Lebsack","courts":[{"id":1,"Name":"praesentium 88","Type":"padel","Hourly_rate":143.81},{"id":2,"Name":"commodi 11","Type":"padel","Hourly_rate":69.42}]}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/courts
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Store a newly created resource in storage.'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      type:
+        custom: []
+        name: type
+        description: ''
+        required: true
+        example: padel
+        type: string
+        enumValues:
+          - football
+          - tennis
+          - padel
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      name:
+        custom: []
+        name: name
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: vmqeopfuudtdsufvyvddq
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      hourly_rate:
+        custom: []
+        name: hourly_rate
+        description: ''
+        required: true
+        example: 11613.31890586
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      venue_id:
+        custom: []
+        name: venue_id
+        description: 'The <code>id</code> of an existing record in the venues table.'
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      type: padel
+      name: vmqeopfuudtdsufvyvddq
+      hourly_rate: 11613.31890586
+      venue_id: consequatur
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/courts/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Update the specified resource in storage.'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the court.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      type:
+        custom: []
+        name: type
+        description: ''
+        required: false
+        example: football
+        type: string
+        enumValues:
+          - football
+          - tennis
+          - padel
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      name:
+        custom: []
+        name: name
+        description: 'Must not be greater than 255 characters.'
+        required: false
+        example: vmqeopfuudtdsufvyvddq
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      hourly_rate:
+        custom: []
+        name: hourly_rate
+        description: ''
+        required: false
+        example: 11613.31890586
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      venue_id:
+        custom: []
+        name: venue_id
+        description: 'The <code>id</code> of an existing record in the venues table.'
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      type: football
+      name: vmqeopfuudtdsufvyvddq
+      hourly_rate: 11613.31890586
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/courts/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Remove the specified resource from storage.'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the court.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/courts
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display a listing of the resource.'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '[{"id":1,"Name":"praesentium 88","Type":"padel","Hourly_rate":143.81,"Venue":{"id":1,"name":"Brown-Tillman","governorate":"Arizona","Owner":"Rogers Lebsack"},"Reviews":[{"rate":3,"comment":"Officia numquam et velit enim atque."},{"rate":4,"comment":"Aliquam ipsum officiis ex."}]},{"id":2,"Name":"commodi 11","Type":"padel","Hourly_rate":69.42,"Venue":{"id":1,"name":"Brown-Tillman","governorate":"Arizona","Owner":"Rogers Lebsack"},"Reviews":[{"rate":3,"comment":"Eligendi magnam dolor doloribus."},{"rate":5,"comment":"Et possimus nulla a ut."}]},{"id":3,"Name":"earum 81","Type":"padel","Hourly_rate":78.69,"Venue":{"id":6,"name":"Morar and Sons","governorate":"District of Columbia","Owner":"Maurice Anderson"},"Reviews":[]},{"id":4,"Name":"pariatur 6","Type":"tennis","Hourly_rate":23.41,"Venue":{"id":10,"name":"Stamm-Lindgren","governorate":"Indiana","Owner":"Mr. Leopoldo Grimes Sr."},"Reviews":[]},{"id":5,"Name":"nisi 87","Type":"tennis","Hourly_rate":59.77,"Venue":{"id":2,"name":"Ritchie Ltd","governorate":"Missouri","Owner":"Rogers Lebsack"},"Reviews":[{"rate":4,"comment":"Ratione doloremque repellat et mollitia et."},{"rate":4,"comment":"Repellendus libero aut eaque dolores qui rerum."}]},{"id":6,"Name":"aperiam 17","Type":"tennis","Hourly_rate":107.22,"Venue":{"id":2,"name":"Ritchie Ltd","governorate":"Missouri","Owner":"Rogers Lebsack"},"Reviews":[{"rate":2,"comment":"Totam quam nihil sequi necessitatibus eveniet nisi eos."},{"rate":3,"comment":"Voluptate ut saepe rerum et minima quam vel aperiam."}]},{"id":7,"Name":"officiis 87","Type":"football","Hourly_rate":187.01,"Venue":{"id":16,"name":"Schowalter, Weimann and Funk","governorate":"Utah","Owner":"Cary Hackett"},"Reviews":[]},{"id":8,"Name":"a 88","Type":"padel","Hourly_rate":145.62,"Venue":{"id":17,"name":"Miller PLC","governorate":"Alaska","Owner":"Ms. Cali Witting IV"},"Reviews":[]},{"id":9,"Name":"asperiores 87","Type":"padel","Hourly_rate":67.93,"Venue":{"id":19,"name":"Nader and Sons","governorate":"Louisiana","Owner":"Darien Gislason"},"Reviews":[]},{"id":10,"Name":"et 74","Type":"padel","Hourly_rate":120.07,"Venue":{"id":21,"name":"McGlynn-Fay","governorate":"New Jersey","Owner":"Tania Feest"},"Reviews":[]},{"id":11,"Name":"unde 33","Type":"tennis","Hourly_rate":92.39,"Venue":{"id":22,"name":"Murray Group","governorate":"Virginia","Owner":"Miss Viviane Schmidt"},"Reviews":[]},{"id":12,"Name":"voluptatem 91","Type":"tennis","Hourly_rate":191.9,"Venue":{"id":27,"name":"Gleichner Group","governorate":"Ohio","Owner":"Mrs. Faye Douglas V"},"Reviews":[]},{"id":13,"Name":"quae 96","Type":"football","Hourly_rate":188.79,"Venue":{"id":28,"name":"Herman-Wehner","governorate":"Washington","Owner":"Elfrieda Gleichner"},"Reviews":[]},{"id":14,"Name":"veritatis 8","Type":"football","Hourly_rate":117.85,"Venue":{"id":29,"name":"VonRueden, Shanahan and Farrell","governorate":"District of Columbia","Owner":"Dr. Ryder Kessler Sr."},"Reviews":[{"rate":2,"comment":"Aliquam voluptate expedita omnis qui rerum incidunt."},{"rate":4,"comment":"Unde rerum expedita et libero et a."}]},{"id":15,"Name":"eligendi 96","Type":"padel","Hourly_rate":163.28,"Venue":{"id":29,"name":"VonRueden, Shanahan and Farrell","governorate":"District of Columbia","Owner":"Dr. Ryder Kessler Sr."},"Reviews":[{"rate":5,"comment":"Nesciunt et ipsum minima eius."},{"rate":2,"comment":"Vel molestiae accusantium amet autem aut non."}]},{"id":16,"Name":"nostrum 99","Type":"tennis","Hourly_rate":123.54,"Venue":{"id":31,"name":"Upton LLC","governorate":"West Virginia","Owner":"Dr. Torrance Hilpert I"},"Reviews":[]},{"id":17,"Name":"qui 61","Type":"tennis","Hourly_rate":63.49,"Venue":{"id":33,"name":"Champlin, Thiel and Brekke","governorate":"Virginia","Owner":"Patrick Shanahan V"},"Reviews":[]},{"id":18,"Name":"eaque 2","Type":"padel","Hourly_rate":132.51,"Venue":{"id":35,"name":"Grady-Carter","governorate":"Rhode Island","Owner":"Jeanne Blick"},"Reviews":[]},{"id":19,"Name":"quos 3","Type":"football","Hourly_rate":126.37,"Venue":{"id":36,"name":"Rice-Turcotte","governorate":"Iowa","Owner":"Kacey Wisoky V"},"Reviews":[]},{"id":20,"Name":"voluptas 45","Type":"football","Hourly_rate":29.01,"Venue":{"id":37,"name":"Little-Fisher","governorate":"Pennsylvania","Owner":"Katrine Wintheiser I"},"Reviews":[]},{"id":21,"Name":"dolorum 10","Type":"football","Hourly_rate":148.25,"Venue":{"id":39,"name":"Beer, Kuhic and Buckridge","governorate":"Indiana","Owner":"Fleta O''Reilly"},"Reviews":[]},{"id":22,"Name":"aut 84","Type":"football","Hourly_rate":106,"Venue":{"id":42,"name":"Rosenbaum-Lynch","governorate":"Indiana","Owner":"Prof. Darian McCullough"},"Reviews":[]},{"id":23,"Name":"provident 85","Type":"football","Hourly_rate":153.12,"Venue":{"id":43,"name":"Gottlieb, Considine and Reinger","governorate":"Idaho","Owner":"Mason Marks"},"Reviews":[]},{"id":24,"Name":"quam 19","Type":"football","Hourly_rate":28.74,"Venue":{"id":30,"name":"Gorczany, Daniel and Hickle","governorate":"Texas","Owner":"Dr. Ryder Kessler Sr."},"Reviews":[{"rate":3,"comment":"Qui molestiae aliquid in eum autem nostrum."},{"rate":2,"comment":"Alias aut omnis suscipit explicabo repellendus nihil cum."}]},{"id":25,"Name":"aut 88","Type":"football","Hourly_rate":166.86,"Venue":{"id":30,"name":"Gorczany, Daniel and Hickle","governorate":"Texas","Owner":"Dr. Ryder Kessler Sr."},"Reviews":[{"rate":1,"comment":"Possimus et et mollitia ut accusamus molestiae."},{"rate":3,"comment":"Accusantium voluptas eligendi laboriosam consequatur quo."}]},{"id":26,"Name":"cumque 9","Type":"football","Hourly_rate":25.64,"Venue":{"id":44,"name":"Hoppe Group","governorate":"Delaware","Owner":"Laurence Mante"},"Reviews":[]},{"id":27,"Name":"at 82","Type":"padel","Hourly_rate":105.19,"Venue":{"id":45,"name":"Mayer-Rempel","governorate":"Tennessee","Owner":"Valentin Torp"},"Reviews":[]},{"id":28,"Name":"architecto 6","Type":"padel","Hourly_rate":192.98,"Venue":{"id":47,"name":"Gutkowski Inc","governorate":"North Carolina","Owner":"Evert Predovic"},"Reviews":[]},{"id":29,"Name":"neque 85","Type":"padel","Hourly_rate":70.04,"Venue":{"id":51,"name":"Erdman, Cole and O''Reilly","governorate":"New Mexico","Owner":"Mertie Hoppe"},"Reviews":[]},{"id":30,"Name":"nobis 95","Type":"padel","Hourly_rate":37.26,"Venue":{"id":52,"name":"Bins-Abshire","governorate":"Florida","Owner":"Violette Thompson"},"Reviews":[]},{"id":31,"Name":"quae 43","Type":"tennis","Hourly_rate":117.63,"Venue":{"id":55,"name":"Funk-Gutmann","governorate":"Kansas","Owner":"Prof. Harley Miller"},"Reviews":[]},{"id":32,"Name":"odio 77","Type":"football","Hourly_rate":184.74,"Venue":{"id":56,"name":"Champlin-Stracke","governorate":"Colorado","Owner":"Anya Mueller"},"Reviews":[]},{"id":33,"Name":"ut 45","Type":"padel","Hourly_rate":121.62,"Venue":{"id":57,"name":"Will-Mayert","governorate":"Alabama","Owner":"Domenico Trantow"},"Reviews":[{"rate":3,"comment":"Sed praesentium autem in esse in ut."},{"rate":2,"comment":"Ea quod officiis accusamus quis."}]},{"id":34,"Name":"numquam 61","Type":"football","Hourly_rate":140.1,"Venue":{"id":57,"name":"Will-Mayert","governorate":"Alabama","Owner":"Domenico Trantow"},"Reviews":[{"rate":2,"comment":"Libero porro alias aliquam pariatur."},{"rate":2,"comment":"Molestiae sapiente eum eveniet cupiditate."}]},{"id":35,"Name":"dolorem 19","Type":"tennis","Hourly_rate":44.91,"Venue":{"id":60,"name":"Parker-Quigley","governorate":"District of Columbia","Owner":"Victoria Jones"},"Reviews":[]},{"id":36,"Name":"dolores 43","Type":"tennis","Hourly_rate":98.24,"Venue":{"id":61,"name":"Steuber, Bahringer and Konopelski","governorate":"Michigan","Owner":"Miss Ernestina Deckow DDS"},"Reviews":[]},{"id":37,"Name":"incidunt 98","Type":"football","Hourly_rate":100.24,"Venue":{"id":69,"name":"Fadel-Goodwin","governorate":"Missouri","Owner":"Mrs. Trisha Pfeffer"},"Reviews":[]},{"id":38,"Name":"sapiente 2","Type":"padel","Hourly_rate":48.37,"Venue":{"id":70,"name":"Wehner, Reinger and Ernser","governorate":"Nevada","Owner":"Brenda Grimes"},"Reviews":[]},{"id":39,"Name":"et 43","Type":"tennis","Hourly_rate":62.22,"Venue":{"id":71,"name":"Rodriguez and Sons","governorate":"West Virginia","Owner":"Mr. Hester Prohaska III"},"Reviews":[]},{"id":40,"Name":"ea 3","Type":"football","Hourly_rate":51.72,"Venue":{"id":58,"name":"Wintheiser, Altenwerth and Bernier","governorate":"Virginia","Owner":"Domenico Trantow"},"Reviews":[{"rate":2,"comment":"Distinctio tempora eius voluptas fuga."},{"rate":1,"comment":"Alias sequi eos unde excepturi ut sapiente."}]},{"id":41,"Name":"similique 12","Type":"padel","Hourly_rate":49.51,"Venue":{"id":58,"name":"Wintheiser, Altenwerth and Bernier","governorate":"Virginia","Owner":"Domenico Trantow"},"Reviews":[{"rate":2,"comment":"Illum eum ea atque culpa autem voluptas aut."},{"rate":3,"comment":"Iure voluptatibus nobis dignissimos qui debitis quam vel."}]},{"id":42,"Name":"sint 74","Type":"football","Hourly_rate":194.08,"Venue":{"id":72,"name":"Block, Jerde and Kertzmann","governorate":"California","Owner":"Miss Myrtis Welch"},"Reviews":[]},{"id":43,"Name":"ex 1","Type":"football","Hourly_rate":146.39,"Venue":{"id":73,"name":"Lang LLC","governorate":"Kentucky","Owner":"Kaleb Beer"},"Reviews":[]},{"id":44,"Name":"dolor 16","Type":"padel","Hourly_rate":66.18,"Venue":{"id":74,"name":"Pfannerstill LLC","governorate":"Wyoming","Owner":"Hazel Johnson"},"Reviews":[]},{"id":45,"Name":"impedit 45","Type":"football","Hourly_rate":99.12,"Venue":{"id":77,"name":"Prohaska-Balistreri","governorate":"Florida","Owner":"Enoch Padberg"},"Reviews":[]},{"id":46,"Name":"eveniet 66","Type":"football","Hourly_rate":42.53,"Venue":{"id":78,"name":"Bechtelar PLC","governorate":"Alaska","Owner":"Dr. Imani Gorczany"},"Reviews":[]},{"id":47,"Name":"quia 22","Type":"padel","Hourly_rate":131.07,"Venue":{"id":79,"name":"Wilderman LLC","governorate":"Georgia","Owner":"Miss Kelsi Mann V"},"Reviews":[]},{"id":48,"Name":"enim 13","Type":"tennis","Hourly_rate":104.15,"Venue":{"id":81,"name":"Durgan-Gutmann","governorate":"Pennsylvania","Owner":"Celine Reichel"},"Reviews":[]},{"id":49,"Name":"harum 26","Type":"padel","Hourly_rate":191.08,"Venue":{"id":84,"name":"DuBuque-Shields","governorate":"Maine","Owner":"Elena Walter"},"Reviews":[]},{"id":50,"Name":"Khomasy","Type":"football","Hourly_rate":150,"Venue":{"id":87,"name":"Wonen Padel Court","governorate":"Zagazig","Owner":"Mohamed Alaa"},"Reviews":[]},{"id":51,"Name":"Khomasy","Type":"football","Hourly_rate":190,"Venue":{"id":87,"name":"Wonen Padel Court","governorate":"Zagazig","Owner":"Mohamed Alaa"},"Reviews":[]}]'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/courts/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display the specified resource.'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the court.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"id":1,"Name":"praesentium 88","Type":"padel","Hourly_rate":143.81}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/bookings
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/bookings
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      court_id:
+        custom: []
+        name: court_id
+        description: 'The <code>id</code> of an existing record in the courts table.'
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      date:
+        custom: []
+        name: date
+        description: 'Must be a valid date. Must be a date after or equal to <code>today</code>.'
+        required: true
+        example: '2107-03-08'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      start_time:
+        custom: []
+        name: start_time
+        description: ''
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      end_time:
+        custom: []
+        name: end_time
+        description: ''
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: false
+        example: cancelled
+        type: string
+        enumValues:
+          - pending
+          - confirmed
+          - cancelled
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      court_id: consequatur
+      date: '2107-03-08'
+      start_time: consequatur
+      end_time: consequatur
+      status: cancelled
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/bookings/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the booking.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/bookings/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the booking.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: false
+        example: cancelled
+        type: string
+        enumValues:
+          - pending
+          - confirmed
+          - cancelled
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      start_time:
+        custom: []
+        name: start_time
+        description: ''
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      end_time:
+        custom: []
+        name: end_time
+        description: ''
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      date:
+        custom: []
+        name: date
+        description: 'Must be a valid date.'
+        required: false
+        example: '2026-02-06T19:04:35'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      status: cancelled
+      date: '2026-02-06T19:04:35'
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/bookings/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the booking.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: 'api/bookings/{booking_id}/confirm'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      booking_id:
+        custom: []
+        name: booking_id
+        description: 'The ID of the booking.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      booking_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/reviews
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      comment:
+        custom: []
+        name: comment
+        description: ''
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      rating:
+        custom: []
+        name: rating
+        description: 'Must be at least 1. Must not be greater than 5.'
+        required: true
+        example: 3
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      reviewable_id:
+        custom: []
+        name: reviewable_id
+        description: ''
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      reviewable_type:
+        custom: []
+        name: reviewable_type
+        description: ''
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      comment: consequatur
+      rating: 3
+      reviewable_id: consequatur
+      reviewable_type: consequatur
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/reviews/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the review.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      comment:
+        custom: []
+        name: comment
+        description: ''
+        required: false
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      rating:
+        custom: []
+        name: rating
+        description: 'Must be at least 1. Must not be greater than 5.'
+        required: false
+        example: 3
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      comment: consequatur
+      rating: 3
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/reviews/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the review.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/reviews
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '[{"rate":3,"comment":"Officia numquam et velit enim atque.","user":{"id":9,"name":"Brielle Fritsch"}},{"rate":4,"comment":"Aliquam ipsum officiis ex.","user":{"id":11,"name":"Raphael Kiehn"}},{"rate":3,"comment":"Eligendi magnam dolor doloribus.","user":{"id":16,"name":"Barbara Doyle MD"}},{"rate":5,"comment":"Et possimus nulla a ut.","user":{"id":18,"name":"Prof. Rogelio Kassulke"}},{"rate":3,"comment":"Est voluptatem accusamus vitae minima.","user":{"id":22,"name":"Kayla Toy DVM"}},{"rate":4,"comment":"Ratione doloremque repellat et mollitia et.","user":{"id":27,"name":"Ms. Anne Wuckert"}},{"rate":4,"comment":"Repellendus libero aut eaque dolores qui rerum.","user":{"id":29,"name":"Brycen Gleichner"}},{"rate":2,"comment":"Totam quam nihil sequi necessitatibus eveniet nisi eos.","user":{"id":34,"name":"Ms. Leila Howe DVM"}},{"rate":3,"comment":"Voluptate ut saepe rerum et minima quam vel aperiam.","user":{"id":36,"name":"Louie Schoen"}},{"rate":4,"comment":"Enim facere eos quia nihil omnis modi.","user":{"id":40,"name":"Elmer Koelpin"}},{"rate":2,"comment":"Aliquam voluptate expedita omnis qui rerum incidunt.","user":{"id":45,"name":"Ms. Genesis Fadel MD"}},{"rate":4,"comment":"Unde rerum expedita et libero et a.","user":{"id":47,"name":"Lora Haley DVM"}},{"rate":5,"comment":"Nesciunt et ipsum minima eius.","user":{"id":52,"name":"Arne Little"}},{"rate":2,"comment":"Vel molestiae accusantium amet autem aut non.","user":{"id":54,"name":"Prof. Alaina Stracke MD"}},{"rate":2,"comment":"Id illo corrupti vel repellat et.","user":{"id":58,"name":"Raquel Cremin III"}},{"rate":3,"comment":"Qui molestiae aliquid in eum autem nostrum.","user":{"id":63,"name":"Cristian Stamm"}},{"rate":2,"comment":"Alias aut omnis suscipit explicabo repellendus nihil cum.","user":{"id":65,"name":"Ms. Effie Ziemann"}},{"rate":1,"comment":"Possimus et et mollitia ut accusamus molestiae.","user":{"id":70,"name":"Joe Batz"}},{"rate":3,"comment":"Accusantium voluptas eligendi laboriosam consequatur quo.","user":{"id":72,"name":"Tyrell Mosciski"}},{"rate":1,"comment":"Laborum ab nihil inventore.","user":{"id":76,"name":"Evans Blick"}},{"rate":3,"comment":"Sed praesentium autem in esse in ut.","user":{"id":81,"name":"Alberto Rempel"}},{"rate":2,"comment":"Ea quod officiis accusamus quis.","user":{"id":83,"name":"Prince Rodriguez DVM"}},{"rate":2,"comment":"Libero porro alias aliquam pariatur.","user":{"id":88,"name":"Prof. Jovany Johnston"}},{"rate":2,"comment":"Molestiae sapiente eum eveniet cupiditate.","user":{"id":90,"name":"Francesco Borer DVM"}},{"rate":2,"comment":"Nihil ut consequatur omnis.","user":{"id":94,"name":"Lysanne Ziemann"}},{"rate":2,"comment":"Distinctio tempora eius voluptas fuga.","user":{"id":99,"name":"Norma Friesen"}},{"rate":1,"comment":"Alias sequi eos unde excepturi ut sapiente.","user":{"id":101,"name":"Dr. Geraldine Mann"}},{"rate":2,"comment":"Illum eum ea atque culpa autem voluptas aut.","user":{"id":106,"name":"Miss Lavonne Hane Jr."}},{"rate":3,"comment":"Iure voluptatibus nobis dignissimos qui debitis quam vel.","user":{"id":108,"name":"Cielo Romaguera"}},{"rate":3,"comment":"Veritatis atque quis ipsa earum aut veniam quis.","user":{"id":112,"name":"Kelli Moore III"}}]'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/reviews/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the review.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 403
+        content: |-
+          {
+              "message": "This action is unauthorized."
+          }
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/availabilities
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      day:
+        custom: []
+        name: day
+        description: ''
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      start_time:
+        custom: []
+        name: start_time
+        description: ''
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      end_time:
+        custom: []
+        name: end_time
+        description: ''
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      is_closed:
+        custom: []
+        name: is_closed
+        description: ''
+        required: false
+        example: false
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      availableable_id:
+        custom: []
+        name: availableable_id
+        description: ''
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      availableable_type:
+        custom: []
+        name: availableable_type
+        description: ''
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      day: consequatur
+      start_time: consequatur
+      end_time: consequatur
+      is_closed: false
+      availableable_id: consequatur
+      availableable_type: consequatur
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/availabilities/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the availability.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      day:
+        custom: []
+        name: day
+        description: ''
+        required: false
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      start_time:
+        custom: []
+        name: start_time
+        description: ''
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      end_time:
+        custom: []
+        name: end_time
+        description: ''
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      is_closed:
+        custom: []
+        name: is_closed
+        description: ''
+        required: false
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      day: consequatur
+      is_closed: true
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/availabilities/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the availability.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/availabilities
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '[{"id":1,"day":"Thursday","start_time":"09:36:13","end_time":"11:36:13"},{"id":2,"day":"Wednesday","start_time":"10:54:02","end_time":"12:54:02"},{"id":3,"day":"Monday","start_time":"15:03:04","end_time":"17:03:04"},{"id":4,"day":"Friday","start_time":"04:13:26","end_time":"06:13:26"},{"id":5,"day":"Monday","start_time":"11:29:34","end_time":"13:29:34"},{"id":6,"day":"Friday","start_time":"20:57:10","end_time":"22:57:10"},{"id":7,"day":"Thursday","start_time":"13:32:33","end_time":"15:32:33"},{"id":8,"day":"Tuesday","start_time":"09:23:23","end_time":"11:23:23"},{"id":9,"day":"Wednesday","start_time":"08:24:39","end_time":"10:24:39"},{"id":10,"day":"Sunday","start_time":"05:02:38","end_time":"07:02:38"},{"id":11,"day":"Saturday","start_time":"13:34:56","end_time":"15:34:56"},{"id":12,"day":"Friday","start_time":"14:28:37","end_time":"16:28:37"},{"id":13,"day":"Monday","start_time":"02:29:30","end_time":"04:29:30"},{"id":14,"day":"Tuesday","start_time":"13:03:39","end_time":"15:03:39"},{"id":15,"day":"Friday","start_time":"05:27:59","end_time":"07:27:59"},{"id":16,"day":"Tuesday","start_time":"06:23:55","end_time":"08:23:55"},{"id":17,"day":"Wednesday","start_time":"12:56:12","end_time":"14:56:12"},{"id":18,"day":"Wednesday","start_time":"12:50:16","end_time":"14:50:16"},{"id":19,"day":"Friday","start_time":"10:23:47","end_time":"12:23:47"},{"id":20,"day":"Sunday","start_time":"12:34:37","end_time":"14:34:37"},{"id":21,"day":"Friday","start_time":"10:58:26","end_time":"12:58:26"},{"id":22,"day":"Thursday","start_time":"03:31:48","end_time":"05:31:48"},{"id":23,"day":"Friday","start_time":"18:08:44","end_time":"20:08:44"},{"id":24,"day":"Thursday","start_time":"19:07:49","end_time":"21:07:49"},{"id":25,"day":"Thursday","start_time":"08:25:36","end_time":"10:25:36"},{"id":26,"day":"Monday","start_time":"14:34:09","end_time":"16:34:09"},{"id":27,"day":"Tuesday","start_time":"20:06:29","end_time":"22:06:29"},{"id":28,"day":"Tuesday","start_time":"02:49:04","end_time":"04:49:04"},{"id":29,"day":"Friday","start_time":"19:09:32","end_time":"21:09:32"},{"id":30,"day":"Tuesday","start_time":"13:47:44","end_time":"15:47:44"},{"id":31,"day":"Friday","start_time":"14:48:13","end_time":"16:48:13"},{"id":32,"day":"Saturday","start_time":"15:37:23","end_time":"17:37:23"},{"id":33,"day":"Wednesday","start_time":"20:09:45","end_time":"22:09:45"},{"id":34,"day":"Tuesday","start_time":"13:56:44","end_time":"15:56:44"},{"id":35,"day":"Friday","start_time":"15:07:46","end_time":"17:07:46"},{"id":36,"day":"Wednesday","start_time":"07:15:00","end_time":"09:15:00"},{"id":37,"day":"Saturday","start_time":"08:30:12","end_time":"10:30:12"},{"id":38,"day":"Tuesday","start_time":"07:20:23","end_time":"09:20:23"},{"id":39,"day":"Saturday","start_time":"06:05:06","end_time":"08:05:06"},{"id":40,"day":"Tuesday","start_time":"13:38:46","end_time":"15:38:46"},{"id":41,"day":"Friday","start_time":"11:10:13","end_time":"13:10:13"},{"id":42,"day":"Friday","start_time":"03:50:48","end_time":"05:50:48"},{"id":43,"day":"Thursday","start_time":"03:58:00","end_time":"05:58:00"},{"id":44,"day":"Sunday","start_time":"21:48:48","end_time":"23:48:48"},{"id":45,"day":"Friday","start_time":"02:17:13","end_time":"04:17:13"},{"id":46,"day":"Wednesday","start_time":"21:13:57","end_time":"23:13:57"},{"id":47,"day":"Thursday","start_time":"07:33:17","end_time":"09:33:17"},{"id":48,"day":"Friday","start_time":"01:20:02","end_time":"03:20:02"},{"id":49,"day":"Sunday","start_time":"10:36:56","end_time":"12:00:00"},{"id":50,"day":"Sunday","start_time":"10:00:00","end_time":"14:00:00"},{"id":51,"day":"Sunday","start_time":"07:00:00","end_time":"14:00:00"},{"id":52,"day":"Sunday","start_time":"07:00:00","end_time":"14:00:00"}]'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/availabilities/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the availability.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 403
+        content: |-
+          {
+              "message": "This action is unauthorized."
+          }
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null

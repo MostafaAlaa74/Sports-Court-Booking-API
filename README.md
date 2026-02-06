@@ -66,6 +66,17 @@ A robust RESTful API for managing sports venues, courts, and user bookings. Buil
     ```bash
     php artisan serve
     ```
+7. **Run Background Workers**
+   This project uses Queues for emails and Scheduling for cleaning up expired bookings.
+
+   * **Start Queue Worker:**
+       ```bash
+       php artisan queue:work
+       ```
+   * **Start Scheduler (Locally):**
+       ```bash
+       php artisan schedule:work
+       ```
 
 ## 🔌 API Endpoints
 
