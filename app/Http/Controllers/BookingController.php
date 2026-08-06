@@ -21,14 +21,11 @@ use Stripe\StripeClient;
 
 class BookingController extends Controller
 {
-    public $createBookingService;
-    public $updateBookingService;
-    public $bookingPaymentService;
-    public function __construct() {
-        $this->createBookingService = new CreateBookingService();
-        $this->updateBookingService = new UpdateBookingService();
-        $this->bookingPaymentService = new BookingPaymentService();
-    }
+    public function __construct(
+        private CreateBookingService $createBookingService,
+        private UpdateBookingService $updateBookingService,
+        private BookingPaymentService $bookingPaymentService
+    ) {}
 
     public function index(Request $request)
     {
@@ -90,12 +87,12 @@ class BookingController extends Controller
                 $request->session_id,
                 $request->booking
             );
-            $data = $booking->load(['user', 'court']);
-            BookConfirmedJob::dispatch($data);
+            $bookingData = $booking->load(['user', 'court']);
+            BookConfirmedJob::dispatch($bookingData);
             return view('payment.success', compact('booking'));
 
         } catch (\Exception $e) {
-            return view('payment.failed', ['error' => $e->getMessage() , 'booking' => $data]);
+            return view('payment.failed', ['error' => $e->getMessage() , 'booking' => $bookingData ?? null]);
         }
     }
 }

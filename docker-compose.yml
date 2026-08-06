@@ -8,6 +8,7 @@ services:
         restart: always
         volumes:
             - .:/var/www # Bind mount the host directory to enable hot-reloading
+            - vendor_data:/var/www/vendor # Use a named volume for vendor dependencies to persist across container rebuilds
 
     # Mysql Service (The Database Engine)
     db:
@@ -36,6 +37,8 @@ services:
         volumes:
         # Mount source code for serving static files directly
         - .:/var/www
+        # Mount the vendor directory to ensure Nginx can access dependencies
+        - vendor_data:/var/www/vendor
         # Mount the custom Nginx configuration file [Moving configration file to nginx folder]
         - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
         depends_on:
@@ -59,6 +62,8 @@ services:
         volumes:
         # Bind mount the code so the worker always has the latest logic
         - .:/var/www
+        # Mount the vendor directory to ensure the worker can access dependencies
+        - vendor_data:/var/www/vendor
         depends_on:
         # Ensure database and redis are up before starting the worker
         - db
@@ -66,3 +71,4 @@ services:
 volumes:
     # Named volume for MySQL data persistence
     db_data:
+    vendor_data:
