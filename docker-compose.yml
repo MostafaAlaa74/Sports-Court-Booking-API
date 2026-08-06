@@ -1,0 +1,68 @@
+version: '5.0'
+
+services:
+    # PHP-FPM Service (The Application Brain)
+    app:
+        build: .
+        container_name: laravel-app
+        restart: always
+        volumes:
+            - .:/var/www # Bind mount the host directory to enable hot-reloading
+
+    # Mysql Service (The Database Engine)
+    db:
+        image: mysql:8.0
+        container_name: laravel-db
+        restart: always
+        ports:
+        # Expose port 3306 to connect via external GUI tools (e.g., TablePlus)
+        - "3306:3306"
+        environment:
+            # Database configuration for the application
+            MYSQL_DATABASE: SportsCourtBooking
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_PASSWORD: root
+        volumes:
+        # Use a named volume to persist database data across container restarts
+        - db_data:/var/lib/mysql
+    # Nginx Service (The Web Server)
+    nginx:
+        image: nginx:alpine
+        container_name: laravel-nginx
+        restart: always
+        ports:
+        # Map host port 8000 to container port 80
+        - "8000:80"
+        volumes:
+        # Mount source code for serving static files directly
+        - .:/var/www
+        # Mount the custom Nginx configuration file [Moving configration file to nginx folder]
+        - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+        depends_on:
+        # Ensure the app container starts before the web container
+        - app
+        - db
+    
+    # Redis Service (Cache and Queue Management)
+    redis:
+        image: redis:alpine
+        container_name: laravel-redis
+        restart: always
+    
+    # Queue Worker Service (The Background Hero)
+    queue:
+        build: .
+        container_name: laravel-queue
+        restart: always
+        # Overwrite the default PHP-FPM command to run the Laravel queue worker
+        command: php artisan queue:work redis --tries=3 --timeout=90
+        volumes:
+        # Bind mount the code so the worker always has the latest logic
+        - .:/var/www
+        depends_on:
+        # Ensure database and redis are up before starting the worker
+        - db
+
+volumes:
+    # Named volume for MySQL data persistence
+    db_data:
