@@ -33,10 +33,11 @@ class Booking extends Model
         return $query->where('status', 'confirmed');
     }
 
-    public function scopeOverlapping($query, $start, $end) {
-        return $query->where(function ($q) use ($start, $end) {
+    public function scopeOverlapping($query, $start, $end , $date) {
+        return $query->where(function ($q) use ($start, $end, $date) {
             $q->where('start_time', '<', $end)
-                ->where('end_time', '>', $start);
+                ->where('end_time', '>', $start)
+                ->where('date', $date);
         });
     }
 

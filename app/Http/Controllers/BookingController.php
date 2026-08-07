@@ -15,6 +15,7 @@ use App\Services\Payment\BookingPaymentService;
 use App\Services\Payment\PaymentConfirmationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
 use Stripe\StripeClient;
@@ -29,10 +30,22 @@ class BookingController extends Controller
 
     public function index(Request $request)
     {
+        
         if(Auth::user()){
         $bookings = Booking::query()
+            ->select([
+                'id',
+                'user_id',
+                'court_id',
+                'date',
+                'start_time',
+                'end_time',
+                'status'
+            ])
             ->forUser(Auth::user())
-            ->with(['user', 'court'])
+            ->with(['user:id,name,email' , 
+                    'court:id,name,type,venue_id,hourly_rate' , 
+                    'court.venue:id,name'])
             ->when($request->filter_upcoming, fn($q) => $q->upcoming())
             ->when($request->filter_past, fn($q) => $q->past())
             ->when($request->filter_confirmed, fn($q) => $q->confirmed())
@@ -49,7 +62,8 @@ class BookingController extends Controller
     {
         Gate::authorize('create', Booking::class);
         $booking = $this->createBookingService->store(['validatedData' => $request->validated(), 'user_id' => Auth::id()]);
-        return response()->json($booking, 201);
+
+        return response()->json(new BookingResource($booking), 201);
     }
 
     public function show(Booking $booking)
