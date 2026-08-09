@@ -37,7 +37,8 @@ class Booking extends Model
         return $query->where(function ($q) use ($start, $end, $date) {
             $q->where('start_time', '<', $end)
                 ->where('end_time', '>', $start)
-                ->where('date', $date);
+                ->where('date', $date)
+                ->where('status', '!=', 'cancelled');
         });
     }
 

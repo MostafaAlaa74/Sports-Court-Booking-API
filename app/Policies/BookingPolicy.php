@@ -34,6 +34,11 @@ class BookingPolicy
 
     public function confirm(User $user, Booking $booking): bool
     {
-        return $user->id === $booking->user_id || $user->role === 'admin' || $user->role === 'field_owner';
+        return $user->id === $booking->user_id || $user->role === 'admin' || $booking->court->venue->owner_id === $user->id;
+    }
+
+    public function cancel(User $user, Booking $booking): bool
+    {
+        return $user->id === $booking->user_id || $user->role === 'admin' || $booking->court->venue->owner_id === $user->id;
     }
 }

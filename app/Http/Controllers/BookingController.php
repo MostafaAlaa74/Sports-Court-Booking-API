@@ -13,6 +13,7 @@ use App\Services\Bookings\CreateBookingService;
 use App\Services\Bookings\UpdateBookingService;
 use App\Services\Payment\BookingPaymentService;
 use App\Services\Payment\PaymentConfirmationService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -30,30 +31,31 @@ class BookingController extends Controller
 
     public function index(Request $request)
     {
-        
-        if(Auth::user()){
-        $bookings = Booking::query()
-            ->select([
-                'id',
-                'user_id',
-                'court_id',
-                'date',
-                'start_time',
-                'end_time',
-                'status'
-            ])
-            ->forUser(Auth::user())
-            ->with(['user:id,name,email' , 
-                    'court:id,name,type,venue_id,hourly_rate' , 
-                    'court.venue:id,name'])
-            ->when($request->filter_upcoming, fn($q) => $q->upcoming())
-            ->when($request->filter_past, fn($q) => $q->past())
-            ->when($request->filter_confirmed, fn($q) => $q->confirmed())
-            ->latest()
-            ->paginate(10);
-        return response()->json($bookings, 200);
-        }
-        else{
+
+        if (Auth::user()) {
+            $bookings = Booking::query()
+                ->select([
+                    'id',
+                    'user_id',
+                    'court_id',
+                    'date',
+                    'start_time',
+                    'end_time',
+                    'status'
+                ])
+                ->forUser(Auth::user())
+                ->with([
+                    'user:id,name,email',
+                    'court:id,name,type,venue_id,hourly_rate',
+                    'court.venue:id,name'
+                ])
+                ->when($request->filter_upcoming, fn($q) => $q->upcoming())
+                ->when($request->filter_past, fn($q) => $q->past())
+                ->when($request->filter_confirmed, fn($q) => $q->confirmed())
+                ->latest()
+                ->paginate(10);
+            return response()->json($bookings, 200);
+        } else {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
     }
@@ -87,14 +89,37 @@ class BookingController extends Controller
         return response()->json(null, 204);
     }
 
-    public function confirm(Booking $booking){
+    public function confirm(Booking $booking)
+    {
         Gate::authorize('confirm', $booking);
+        if ($booking->status !== 'pending') {
+            return response()->json([
+                'message' => 'Only pending bookings can be confirmed.'
+            ], 422);
+        }
         $checkout =  $this->bookingPaymentService->confirmBooking($booking);
 
         return response()->json(['checkout_url' => $checkout], 200);
     }
 
-    public function checkoutCompleted(Request $request , PaymentConfirmationService $paymentConfirmationService){
+    public function cancel(Booking $booking)
+    {
+
+        Gate::authorize('cancel', $booking);
+        if ($booking->status === 'cancelled') {
+            return response()->json(['message' => 'Booking is already cancelled'], 422);
+        }
+        $bookingStart = Carbon::parse($booking->date . ' ' . $booking->start_time);
+        if ($bookingStart->isPast()) {
+            return response()->json(['message' => 'Cannot cancel a booking that has already started or passed'], 403);
+        }
+        $booking->status = 'cancelled';
+        $booking->save();
+        return response()->json(['message' => 'Booking cancelled successfully'], 200);
+    }
+
+    public function checkoutCompleted(Request $request, PaymentConfirmationService $paymentConfirmationService)
+    {
         try {
 
             $booking = $paymentConfirmationService->verifyAndConfirm(
@@ -104,10 +129,8 @@ class BookingController extends Controller
             $bookingData = $booking->load(['user', 'court']);
             BookConfirmedJob::dispatch($bookingData);
             return view('payment.success', compact('booking'));
-
         } catch (\Exception $e) {
-            return view('payment.failed', ['error' => $e->getMessage() , 'booking' => $bookingData ?? null]);
+            return view('payment.failed', ['error' => $e->getMessage(), 'booking' => $bookingData ?? null]);
         }
     }
 }
-

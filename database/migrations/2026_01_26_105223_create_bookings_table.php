@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('date');
             $table->enum('status' , ['pending' , 'confirmed' , 'cancelled']);
             $table->timestamps();
+            $table->index(['court_id', 'date']); //! Composite Indexing
         });
     }
 
