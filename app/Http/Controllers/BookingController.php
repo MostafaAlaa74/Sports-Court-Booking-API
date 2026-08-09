@@ -78,8 +78,8 @@ class BookingController extends Controller
     public function update(UpdateBookingRequest $request, Booking $booking)
     {
         Gate::authorize('update', $booking);
-        $booking = $this->updateBookingService->update(['validatedData' => $request->validated(), 'booking' => $booking]);
-        return response()->json($booking, 200);
+        $booking = $this->updateBookingService->update($booking, $request->validated());
+        return response()->json(new BookingResource($booking->load('court', 'user')), 200);
     }
 
     public function destroy(Booking $booking)
@@ -91,12 +91,13 @@ class BookingController extends Controller
 
     public function confirm(Booking $booking)
     {
-        Gate::authorize('confirm', $booking);
         if ($booking->status !== 'pending') {
             return response()->json([
                 'message' => 'Only pending bookings can be confirmed.'
             ], 422);
         }
+        Gate::authorize('confirm', $booking);
+
         $checkout =  $this->bookingPaymentService->confirmBooking($booking);
 
         return response()->json(['checkout_url' => $checkout], 200);
@@ -104,8 +105,6 @@ class BookingController extends Controller
 
     public function cancel(Booking $booking)
     {
-
-        Gate::authorize('cancel', $booking);
         if ($booking->status === 'cancelled') {
             return response()->json(['message' => 'Booking is already cancelled'], 422);
         }
@@ -113,6 +112,8 @@ class BookingController extends Controller
         if ($bookingStart->isPast()) {
             return response()->json(['message' => 'Cannot cancel a booking that has already started or passed'], 403);
         }
+        Gate::authorize('cancel', $booking);
+
         $booking->status = 'cancelled';
         $booking->save();
         return response()->json(['message' => 'Booking cancelled successfully'], 200);

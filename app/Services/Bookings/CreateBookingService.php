@@ -12,10 +12,15 @@ class CreateBookingService
     public function store(array $data)
     {
         return DB::transaction(function () use ($data) {
+            if (
+                $data['validatedData']['start_time'] >= $data['validatedData']['end_time']
+            ) {
+                throw new \Exception('Start time must be before end time.');
+            }
             //? How could we prevent Race Conditions here?
             //* We can use database locks or unique constraints to prevent race conditions.
             $court = Court::query()->lockForUpdate()->findOrFail($data['validatedData']['court_id']);
-            
+
             if (Booking::query()->overlapping(
                 $data['validatedData']['start_time'],
                 $data['validatedData']['end_time'],
