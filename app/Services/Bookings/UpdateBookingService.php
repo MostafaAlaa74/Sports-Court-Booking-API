@@ -2,6 +2,7 @@
 
 namespace App\Services\Bookings;
 
+use App\Exceptions\BookingConflictException;
 use App\Http\Resources\BookingResource;
 use App\Models\Booking;
 use App\Models\Court;
@@ -24,13 +25,6 @@ class UpdateBookingService
                 return response()->json(['message' => 'Cannot cancel a booking that has already started or passed'], 403);
             }
 
-            if (
-                isset($validatedData['start_time']) && isset($validatedData['end_time']) &&
-                $validatedData['start_time'] >= $validatedData['end_time']
-            ) {
-                throw new \Exception('Start time must be before end time.');
-            }
-
             Court::query()
                 ->where('id', $courtId)
                 ->lockForUpdate()
@@ -40,7 +34,7 @@ class UpdateBookingService
                 $validatedData['end_time'] ?? $booking->end_time,
                 $validatedData['date'] ?? $booking->date
             )->where('court_id', $courtId)->exists()) {
-                throw new \Exception('The selected time slot is already booked.');
+                throw new BookingConflictException('The selected time slot is already booked.');
             };
             $booking->update($validatedData);
 

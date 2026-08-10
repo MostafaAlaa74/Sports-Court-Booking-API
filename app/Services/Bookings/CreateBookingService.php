@@ -2,6 +2,7 @@
 
 namespace App\Services\Bookings;
 
+use App\Exceptions\BookingConflictException;
 use App\Http\Resources\BookingResource;
 use App\Models\Booking;
 use App\Models\Court;
@@ -26,7 +27,7 @@ class CreateBookingService
                 $data['validatedData']['end_time'],
                 $data['validatedData']['date']
             )->where('court_id', $court->id)->exists()) {
-                throw new \Exception('The selected time slot is already booked.');
+                throw new BookingConflictException('The selected time slot is already booked.');
             };
             $booking =  Booking::create([
                 'user_id' => $data['user_id'],

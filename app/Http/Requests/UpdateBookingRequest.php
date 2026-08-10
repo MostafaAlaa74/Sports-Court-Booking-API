@@ -20,4 +20,20 @@ class UpdateBookingRequest extends FormRequest
             'date' => 'sometimes|date_format:Y-m-d|after_or_equal:today',
         ];
     }
+
+    //* This method is used to add custom validation logic after the initial validation rules have been applied.
+    public function after(): array
+    {
+        return [
+            function ($validator) {
+                if (
+                    $this->filled('start_time') &&
+                    $this->filled('end_time') &&
+                    $this->input('start_time') >= $this->input('end_time')
+                ) {
+                    $validator->errors()->add('start_time', 'Start time must be before end time.');
+                }
+            },
+        ];
+    }
 }
