@@ -22,7 +22,7 @@ class PaymentConfirmationService
         $session = $this->stripe->checkout->sessions->retrieve($sessionId);
 
         if ($session->payment_status !== 'paid') {
-            throw new Exception('Payment not completed.');
+            throw new \Exception('Payment not completed.');
         }
 
         $booking = Booking::findOrFail($bookingId);

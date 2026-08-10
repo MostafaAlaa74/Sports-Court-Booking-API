@@ -127,11 +127,10 @@ class BookingController extends Controller
                 $request->session_id,
                 $request->booking
             );
-            $bookingData = $booking->load(['user', 'court']);
-            BookConfirmedJob::dispatch($bookingData);
+            BookConfirmedJob::dispatch($booking);
             return view('payment.success', compact('booking'));
         } catch (\Exception $e) {
-            return view('payment.failed', ['error' => $e->getMessage(), 'booking' => $bookingData ?? null]);
+            return view('payment.failed', ['error' => $e->getMessage(), 'booking' => $booking ?? null]);
         }
     }
 }
