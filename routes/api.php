@@ -30,6 +30,7 @@ Route::apiResource('/courts', CourtController::class)->only(['index', 'show']);
 Route::apiResource('/bookings', BookingController::class)->middleware('auth:sanctum');
 Route::post('/bookings/{booking}/confirm', [BookingController::class, 'confirm'])->middleware('auth:sanctum');
 Route::post('/bookings/{booking}/cancel', [BookingController::class, 'cancel'])->middleware('auth:sanctum');
+Route::get('/my-bookings', [BookingController::class, 'getUserBookings'])->middleware('auth:sanctum');
 
 Route::apiResource('/reviews', ReviewController::class)->middleware('auth:sanctum')->except(['index', 'show']);
 Route::apiResource('/reviews', ReviewController::class)->only(['index', 'show']);

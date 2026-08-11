@@ -124,4 +124,34 @@ class BookingController extends Controller
         $booking = Booking::findOrFail($request->booking);
         return view('payment.success', compact('booking'));
     }
+
+    public function getUserBookings(Request $request)
+    {
+        if (Auth::user()) {
+            $bookings = Booking::query()
+                ->select([
+                    'id',
+                    'user_id',
+                    'court_id',
+                    'date',
+                    'start_time',
+                    'end_time',
+                    'status'
+                ])
+                ->forUser(Auth::user())
+                ->with([
+                    'user:id,name,email',
+                    'court:id,name,type,venue_id,hourly_rate',
+                    'court.venue:id,name'
+                ])
+                ->when($request->filter_upcoming, fn($q) => $q->upcoming())
+                ->when($request->filter_past, fn($q) => $q->past())
+                ->when($request->filter_confirmed, fn($q) => $q->confirmed())
+                ->latest()
+                ->paginate(10);
+            return response()->json($bookings, 200);
+        } else {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+    }
 }
