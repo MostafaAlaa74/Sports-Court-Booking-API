@@ -119,18 +119,9 @@ class BookingController extends Controller
         return response()->json(['message' => 'Booking cancelled successfully'], 200);
     }
 
-    public function checkoutCompleted(Request $request, PaymentConfirmationService $paymentConfirmationService)
+    public function checkoutCompleted(Request $request)
     {
-        try {
-
-            $booking = $paymentConfirmationService->verifyAndConfirm(
-                $request->session_id,
-                $request->booking
-            );
-            BookConfirmedJob::dispatch($booking);
-            return view('payment.success', compact('booking'));
-        } catch (\Exception $e) {
-            return view('payment.failed', ['error' => $e->getMessage(), 'booking' => $booking ?? null]);
-        }
+        $booking = Booking::findOrFail($request->booking);
+        return view('payment.success', compact('booking'));
     }
 }

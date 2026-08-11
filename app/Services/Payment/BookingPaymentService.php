@@ -25,6 +25,9 @@ class BookingPaymentService
               ],
               'quantity' => 1,
             ]],
+            'metadata' => [
+                'booking_id' => $booking->id,
+            ],
             'mode' => 'payment',
             'success_url' => route('payment.success', ['booking' => $booking->id]) . '&session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => route('payment.cancel'),

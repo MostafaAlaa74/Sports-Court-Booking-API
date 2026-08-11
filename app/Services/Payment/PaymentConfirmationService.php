@@ -16,23 +16,32 @@ class PaymentConfirmationService
         $this->stripe = new StripeClient(config('stripe.api_key.secret'));
     }
 
-    public function verifyAndConfirm($sessionId, $bookingId)
+    public function verifyAndConfirm($session)
     {
-        // 1. Check Stripe
-        $session = $this->stripe->checkout->sessions->retrieve($sessionId);
+        $bookingId = $session->metadata->booking_id ?? null;
 
         if ($session->payment_status !== 'paid') {
             throw new \Exception('Payment not completed.');
         }
 
-        $booking = Booking::findOrFail($bookingId);
+        if (!$bookingId) {
+            throw new \Exception('Booking ID is missing.');
+        }
+
+        $booking = Booking::find($bookingId);
+
+        if (!$booking) {
+            throw new \Exception('Booking not found.');
+        }
 
         if ($booking->status === 'confirmed') {
             return $booking;
         }
 
-        $booking->update(['status' => 'confirmed']);
-
+        $booking->update([
+            'status' => 'confirmed',
+        ]);
+        BookConfirmedJob::dispatch($booking);
         return $booking;
     }
 }

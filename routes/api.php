@@ -36,3 +36,8 @@ Route::apiResource('/reviews', ReviewController::class)->only(['index', 'show'])
 
 Route::apiResource('/availabilities', AvailabilityController::class)->middleware('auth:sanctum')->except(['index', 'show']);
 Route::apiResource('/availabilities', AvailabilityController::class)->only(['index', 'show']);
+
+//* Webhook Route
+Route::post('/stripe/webhook', [\App\Http\Controllers\stripeWebhookController::class, 'handleWebhook'])
+    ->name('stripe.webhook')
+    ->middleware('webhook.idempotency');
