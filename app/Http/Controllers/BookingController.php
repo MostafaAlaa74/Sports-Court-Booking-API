@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\BookingStatus;
 use App\Events\bookingConfirmedEvent;
 use App\Http\Resources\BookingResource;
 use App\Jobs\BookConfirmedJob;
@@ -91,7 +92,7 @@ class BookingController extends Controller
 
     public function confirm(Booking $booking)
     {
-        if ($booking->status !== 'pending') {
+        if ($booking->status !== BookingStatus::PENDING->value) {
             return response()->json([
                 'message' => 'Only pending bookings can be confirmed.'
             ], 422);
@@ -105,7 +106,7 @@ class BookingController extends Controller
 
     public function cancel(Booking $booking)
     {
-        if ($booking->status === 'cancelled') {
+        if ($booking->status === BookingStatus::CANCELLED->value) {
             return response()->json(['message' => 'Booking is already cancelled'], 422);
         }
         $bookingStart = Carbon::parse($booking->date . ' ' . $booking->start_time);
@@ -114,7 +115,7 @@ class BookingController extends Controller
         }
         Gate::authorize('cancel', $booking);
 
-        $booking->status = 'cancelled';
+        $booking->status = BookingStatus::CANCELLED->value;
         $booking->save();
         return response()->json(['message' => 'Booking cancelled successfully'], 200);
     }

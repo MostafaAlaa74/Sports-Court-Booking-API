@@ -2,6 +2,7 @@
 
 namespace App\Services\Bookings;
 
+use App\Enums\BookingStatus;
 use App\Exceptions\BookingConflictException;
 use App\Http\Resources\BookingResource;
 use App\Models\Booking;
@@ -35,7 +36,7 @@ class CreateBookingService
                 'date' => $data['validatedData']['date'],
                 'start_time' => $data['validatedData']['start_time'],
                 'end_time' => $data['validatedData']['end_time'],
-                'status' => $data['validatedData']['status'] ?? 'pending'
+                'status' => $data['validatedData']['status'] ?? BookingStatus::PENDING->value,
             ]);
 
             return $booking;

@@ -3,6 +3,7 @@
 namespace App\Services\Payment;
 
 use _PHPStan_781aefaf6\Nette\Neon\Exception;
+use App\Enums\BookingStatus;
 use App\Jobs\BookConfirmedJob;
 use App\Models\Booking;
 use Stripe\StripeClient;
@@ -34,12 +35,12 @@ class PaymentConfirmationService
             throw new \Exception('Booking not found.');
         }
 
-        if ($booking->status === 'confirmed') {
+        if ($booking->status === BookingStatus::CONFIRMED->value) {
             return $booking;
         }
 
         $booking->update([
-            'status' => 'confirmed',
+            'status' => BookingStatus::CONFIRMED->value,
         ]);
         BookConfirmedJob::dispatch($booking);
         return $booking;

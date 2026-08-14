@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\UserRoles;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -58,9 +59,9 @@ class Booking extends Model
 
     public function scopeForUser($query, $user)
     {
-        if ($user->role === 'admin') {
+        if ($user->role === UserRoles::ADMIN->value) {
             return $query;
-        } elseif ($user->role === 'field_owner') {
+        } elseif ($user->role === UserRoles::FIELD_OWNER->value) {
             return $query->whereHas('court', function ($q) use ($user) {
                 $q->where('owner_id', $user->id);
             });

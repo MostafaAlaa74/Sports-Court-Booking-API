@@ -2,6 +2,7 @@
 
 namespace App\Services\Bookings;
 
+use App\Enums\BookingStatus;
 use App\Exceptions\BookingConflictException;
 use App\Http\Resources\BookingResource;
 use App\Models\Booking;
@@ -17,7 +18,7 @@ class UpdateBookingService
             $bookingStart = Carbon::parse($booking->date . ' ' . $booking->start_time);
             $courtId = $validatedData['court_id'] ?? $booking->court_id;
 
-            if ($booking->status === 'cancelled') {
+            if ($booking->status === BookingStatus::CANCELLED->value) {
                 return response()->json(['message' => 'Booking is already cancelled'], 422);
             }
 

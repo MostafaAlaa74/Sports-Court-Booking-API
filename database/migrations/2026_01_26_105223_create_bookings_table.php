@@ -18,7 +18,7 @@ return new class extends Migration
             $table->time('start_time');
             $table->time('end_time');
             $table->date('date');
-            $table->enum('status' , ['pending' , 'confirmed' , 'cancelled']);
+            $table->enum('status' , array_column(\App\Enums\BookingStatus::cases() , 'value'))->default(\App\Enums\BookingStatus::PENDING->value);
             $table->timestamps();
             $table->index(['court_id', 'date']); //! Composite Indexing
         });

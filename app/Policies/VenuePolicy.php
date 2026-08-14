@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\UserRoles;
 use Illuminate\Auth\Access\Response;
 use App\Models\Venue;
 use App\Models\User;
@@ -29,7 +30,7 @@ class VenuePolicy
      */
     public function create(User $user): bool
     {
-        return $user->role == 'field_owner';
+        return $user->role == UserRoles::FIELD_OWNER->value;
     }
 
     /**
@@ -37,7 +38,7 @@ class VenuePolicy
      */
     public function update(User $user, Venue $venue): bool
     {
-        return $user->id === $venue->owner_id || $user->role == 'admin';
+        return $user->id === $venue->owner_id || $user->role == UserRoles::ADMIN->value;
     }
 
     /**
@@ -45,7 +46,7 @@ class VenuePolicy
      */
     public function delete(User $user, Venue $venue): bool
     {
-        return $user->id === $venue->owner_id || $user->role == 'admin';
+        return $user->id === $venue->owner_id || $user->role == UserRoles::ADMIN->value;
     }
 
     /**
