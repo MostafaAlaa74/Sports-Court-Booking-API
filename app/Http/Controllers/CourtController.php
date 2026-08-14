@@ -7,6 +7,7 @@ use App\Models\Court;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCourtRequest;
 use App\Http\Requests\UpdateCourtRequest;
+use App\Repository\Interfaces\CourtInterface;
 use App\Services\Courts\CreateCourtService;
 use App\Services\Courts\UpdateCourtService;
 use Illuminate\Http\Request;
@@ -17,7 +18,11 @@ use Illuminate\Support\Facades\Gate;
 class CourtController extends Controller
 {
 
-    public function __construct(private CreateCourtService $createCourtService, private UpdateCourtService $updateCourtService) {}
+    public function __construct(
+        private CreateCourtService $createCourtService,
+        private UpdateCourtService $updateCourtService,
+        protected CourtInterface $courtRepository,
+    ) {}
     /**
      * Display a listing of the resource.
      */
@@ -30,22 +35,7 @@ class CourtController extends Controller
             $key,
             3600,
             function () use ($request) {
-                return Court::query()
-                    ->with('reviews', 'venue')
-                    ->when($request->filter_type, function ($query, $type) {
-                        $query->courtType($type);
-                    })
-                    ->when(
-                        $request->filter_price_min &&
-                            $request->filter_price_max,
-                        function ($query) use ($request) {
-                            $query->priceRange(
-                                $request->filter_price_min,
-                                $request->filter_price_max
-                            );
-                        }
-                    )
-                    ->get();
+                return $this->courtRepository->getCourts($request);
             }
         );
 

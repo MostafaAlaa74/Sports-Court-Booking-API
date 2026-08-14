@@ -10,6 +10,7 @@ use App\Models\Booking;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateBookingRequest;
 use App\Http\Requests\UpdateBookingRequest;
+use App\Repository\Interfaces\BookingInterface;
 use App\Services\Bookings\CreateBookingService;
 use App\Services\Bookings\UpdateBookingService;
 use App\Services\Payment\BookingPaymentService;
@@ -27,34 +28,15 @@ class BookingController extends Controller
     public function __construct(
         private CreateBookingService $createBookingService,
         private UpdateBookingService $updateBookingService,
-        private BookingPaymentService $bookingPaymentService
+        private BookingPaymentService $bookingPaymentService,
+        private BookingInterface $bookingRepository,
     ) {}
 
     public function index(Request $request)
     {
 
         if (Auth::user()) {
-            $bookings = Booking::query()
-                ->select([
-                    'id',
-                    'user_id',
-                    'court_id',
-                    'date',
-                    'start_time',
-                    'end_time',
-                    'status'
-                ])
-                ->forUser(Auth::user())
-                ->with([
-                    'user:id,name,email',
-                    'court:id,name,type,venue_id,hourly_rate',
-                    'court.venue:id,name'
-                ])
-                ->when($request->filter_upcoming, fn($q) => $q->upcoming())
-                ->when($request->filter_past, fn($q) => $q->past())
-                ->when($request->filter_confirmed, fn($q) => $q->confirmed())
-                ->latest()
-                ->paginate(10);
+            $bookings = $this->bookingRepository->getBookings($request);
             return response()->json($bookings, 200);
         } else {
             return response()->json(['message' => 'Unauthorized'], 401);
@@ -124,35 +106,5 @@ class BookingController extends Controller
     {
         $booking = Booking::findOrFail($request->booking);
         return view('payment.success', compact('booking'));
-    }
-
-    public function getUserBookings(Request $request)
-    {
-        if (Auth::user()) {
-            $bookings = Booking::query()
-                ->select([
-                    'id',
-                    'user_id',
-                    'court_id',
-                    'date',
-                    'start_time',
-                    'end_time',
-                    'status'
-                ])
-                ->forUser(Auth::user())
-                ->with([
-                    'user:id,name,email',
-                    'court:id,name,type,venue_id,hourly_rate',
-                    'court.venue:id,name'
-                ])
-                ->when($request->filter_upcoming, fn($q) => $q->upcoming())
-                ->when($request->filter_past, fn($q) => $q->past())
-                ->when($request->filter_confirmed, fn($q) => $q->confirmed())
-                ->latest()
-                ->paginate(10);
-            return response()->json($bookings, 200);
-        } else {
-            return response()->json(['message' => 'Unauthorized'], 401);
-        }
     }
 }
