@@ -7,28 +7,29 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Facades\Cache;
 
 class Court extends Model
 {
     use HasFactory;
-    protected $fillable = ['venue_id' , 'type' , 'name' , 'hourly_rate'];
+    protected $fillable = ['venue_id', 'type', 'name', 'hourly_rate'];
 
-    public function venue() : BelongsTo
+    public function venue(): BelongsTo
     {
         return $this->belongsTo(Venue::class);
     }
 
-    public function bookings() : HasMany
+    public function bookings(): HasMany
     {
         return $this->hasMany(Booking::class);
     }
 
-    public function availabilities() : MorphMany
+    public function availabilities(): MorphMany
     {
         return $this->morphMany(Availability::class, 'availableable');
     }
 
-    public function reviews() : MorphMany
+    public function reviews(): MorphMany
     {
         return $this->morphMany(Review::class, 'reviewable');
     }

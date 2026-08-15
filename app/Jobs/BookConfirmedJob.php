@@ -2,22 +2,22 @@
 
 namespace App\Jobs;
 
-use App\Events\bookingConfirmedEvent;
+use App\Mail\BookingConfirmedEmail;
+use App\Models\Booking;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\Mail;
 
 class BookConfirmedJob implements ShouldQueue
 {
     use Queueable;
 
-    public $data;
 
     /**
      * Create a new job instance.
      */
-    public function __construct($data)
+    public function __construct(public Booking $booking)
     {
-        $this->data = $data;
     }
 
     /**
@@ -25,6 +25,6 @@ class BookConfirmedJob implements ShouldQueue
      */
     public function handle(): void
     {
-        bookingConfirmedEvent::dispatch($this->data);
+        Mail::to($this->booking->user->email)->send(new BookingConfirmedEmail($this->booking));
     }
 }

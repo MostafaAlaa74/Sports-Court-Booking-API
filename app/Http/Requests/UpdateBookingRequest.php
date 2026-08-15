@@ -14,10 +14,26 @@ class UpdateBookingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => 'sometimes|in:pending,confirmed,cancelled',
-            'start_time' => 'sometimes',
-            'end_time' => 'sometimes',
-            'date' => 'sometimes|date'
+            'court_id' => 'sometimes|exists:courts,id',
+            'start_time' => 'sometimes|date_format:H:i',
+            'end_time' => 'sometimes|date_format:H:i',
+            'date' => 'sometimes|date_format:Y-m-d|after_or_equal:today',
+        ];
+    }
+
+    //* This method is used to add custom validation logic after the initial validation rules have been applied.
+    public function after(): array
+    {
+        return [
+            function ($validator) {
+                if (
+                    $this->filled('start_time') &&
+                    $this->filled('end_time') &&
+                    $this->input('start_time') >= $this->input('end_time')
+                ) {
+                    $validator->errors()->add('start_time', 'Start time must be before end time.');
+                }
+            },
         ];
     }
 }
