@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Observers\CourtObserver;
 use App\Repository\Eloquent\BookingRepo;
 use App\Repository\Eloquent\CourtRepo;
 use App\Repository\Interfaces\BookingInterface;
@@ -26,15 +27,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(
-            BookingInterface::class ,
-            BookingRepo::class
-        );
-
-        $this->app->bind(
-            CourtInterface::class,
-            CourtRepo::class
-        );
+        //
     }
 
     /**
@@ -47,5 +40,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(Booking::class, BookingPolicy::class);
         Gate::policy(Review::class, ReviewPolicy::class);
         Gate::policy(Availability::class, AvailabilityPolicy::class);
+
+        Court::observe(CourtObserver::class);
     }
 }

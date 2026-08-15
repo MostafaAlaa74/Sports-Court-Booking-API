@@ -4,12 +4,13 @@ namespace App\Repository\Eloquent;
 
 use App\Models\Court;
 use App\Repository\Interfaces\CourtInterface;
+use Illuminate\Support\Collection;
 
 class CourtRepo implements CourtInterface
 {
-    public function getCourts($request)
+    public function getCourts($request) : Collection
     {
-
+//        dd($request);
         return Court::query()
             ->with('reviews', 'venue')
             ->when($request->filter_type, function ($query, $type) {

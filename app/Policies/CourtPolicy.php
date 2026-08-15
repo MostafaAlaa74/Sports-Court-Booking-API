@@ -30,7 +30,7 @@ class CourtPolicy
      */
     public function create(User $user): bool
     {
-        return $user->role === UserRoles::FIELD_OWNER->value;
+        return $user->role === UserRoles::FIELD_OWNER->value || $user->role === UserRoles::ADMIN->value;
     }
 
     /**

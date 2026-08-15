@@ -7,6 +7,7 @@ use App\Models\Court;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCourtRequest;
 use App\Http\Requests\UpdateCourtRequest;
+use App\Repository\Interfaces\CourtCacheInterface;
 use App\Repository\Interfaces\CourtInterface;
 use App\Services\Courts\CreateCourtService;
 use App\Services\Courts\UpdateCourtService;
@@ -21,23 +22,15 @@ class CourtController extends Controller
     public function __construct(
         private CreateCourtService $createCourtService,
         private UpdateCourtService $updateCourtService,
-        protected CourtInterface $courtRepository,
+        protected CourtCacheInterface $courtRepository,
     ) {}
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        //! to generate a unique cache key based on the request query parameters,
-        //! we can use the md5 hash of the json encoded query parameters. This will ensure that different combinations of query parameters will result in different cache keys.
-        $key = 'courts' . md5(json_encode($request->query()));
-        $courts = Cache::tags(['courts'])->remember(
-            $key,
-            3600,
-            function () use ($request) {
-                return $this->courtRepository->getCourts($request);
-            }
-        );
+
+        $courts = $this->courtRepository->getCourts($request);
 
         return response()->json(CourtResource::collection($courts), 200);
     }
