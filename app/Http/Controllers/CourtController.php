@@ -7,32 +7,32 @@ use App\Models\Court;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCourtRequest;
 use App\Http\Requests\UpdateCourtRequest;
+use App\Repository\Interfaces\CourtCacheInterface;
+use App\Repository\Interfaces\CourtInterface;
 use App\Services\Courts\CreateCourtService;
 use App\Services\Courts\UpdateCourtService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 
 class CourtController extends Controller
 {
 
-    public function __construct(private CreateCourtService $createCourtService , private UpdateCourtService $updateCourtService){}
+    public function __construct(
+        private CreateCourtService $createCourtService,
+        private UpdateCourtService $updateCourtService,
+        protected CourtCacheInterface $courtRepository,
+    ) {}
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $courts = CourtResource::collection(
-            Court::query()->with('reviews' , 'venue')
-                ->when($request->filter_type, function ($query, $type) {
-                    $query->courtType($type);
-                })
-                ->when($request->filter_price_min && $request->filter_price_max, function ($query) use ($request) {
-                    $query->priceRange($request->filter_price_min, $request->filter_price_max);
-                })
-                ->get()
-        );
-        return response()->json($courts, 200);
+
+        $courts = $this->courtRepository->getCourts($request);
+
+        return response()->json(CourtResource::collection($courts), 200);
     }
 
     /**
@@ -41,8 +41,8 @@ class CourtController extends Controller
     public function store(CreateCourtRequest $request)
     {
         Gate::authorize('create', Court::class);
-        $court = $this->createCourtService->create([ 'ValidatedData' => $request->validated() ,'user' => Auth::user()]);
-        return response()->json($court, 201);
+        $court = $this->createCourtService->create(['ValidatedData' => $request->validated(), 'user' => Auth::user()]);
+        return response()->json(new CourtResource($court), 201);
     }
 
     /**
@@ -60,8 +60,8 @@ class CourtController extends Controller
     public function update(UpdateCourtRequest $request, Court $court)
     {
         Gate::authorize('update', $court);
-        $court = $this->updateCourtService->update(['validatedData' => $request->validated() , 'court' => $court]);
-        return response()->json($court, 200);
+        $court = $this->updateCourtService->update(['validatedData' => $request->validated(), 'court' => $court]);
+        return response()->json(new CourtResource($court), 200);
     }
 
     /**

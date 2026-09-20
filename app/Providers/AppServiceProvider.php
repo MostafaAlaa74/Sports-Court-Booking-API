@@ -2,6 +2,11 @@
 
 namespace App\Providers;
 
+use App\Observers\CourtObserver;
+use App\Repository\Eloquent\BookingRepo;
+use App\Repository\Eloquent\CourtRepo;
+use App\Repository\Interfaces\BookingInterface;
+use App\Repository\Interfaces\CourtInterface;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use App\Policies\CourtPolicy;
@@ -35,5 +40,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(Booking::class, BookingPolicy::class);
         Gate::policy(Review::class, ReviewPolicy::class);
         Gate::policy(Availability::class, AvailabilityPolicy::class);
+
+        Court::observe(CourtObserver::class);
     }
 }

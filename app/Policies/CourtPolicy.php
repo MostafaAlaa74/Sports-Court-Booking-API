@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\UserRoles;
 use Illuminate\Auth\Access\Response;
 use App\Models\Court;
 use App\Models\User;
@@ -29,7 +30,7 @@ class CourtPolicy
      */
     public function create(User $user): bool
     {
-        return $user->role === 'field_owner';
+        return $user->role === UserRoles::FIELD_OWNER->value || $user->role === UserRoles::ADMIN->value;
     }
 
     /**
@@ -45,7 +46,7 @@ class CourtPolicy
      */
     public function delete(User $user, Court $court): bool
     {
-        return $user->id === $court->venue->owner_id || $user->role === 'admin';
+        return $user->id === $court->venue->owner_id || $user->role === UserRoles::ADMIN->value;
     }
 
     /**

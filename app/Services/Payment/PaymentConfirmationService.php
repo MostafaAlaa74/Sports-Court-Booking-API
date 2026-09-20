@@ -3,6 +3,7 @@
 namespace App\Services\Payment;
 
 use _PHPStan_781aefaf6\Nette\Neon\Exception;
+use App\Enums\BookingStatus;
 use App\Jobs\BookConfirmedJob;
 use App\Models\Booking;
 use Stripe\StripeClient;
@@ -16,23 +17,32 @@ class PaymentConfirmationService
         $this->stripe = new StripeClient(config('stripe.api_key.secret'));
     }
 
-    public function verifyAndConfirm($sessionId, $bookingId)
+    public function verifyAndConfirm($session)
     {
-        // 1. Check Stripe
-        $session = $this->stripe->checkout->sessions->retrieve($sessionId);
+        $bookingId = $session->metadata->booking_id ?? null;
 
         if ($session->payment_status !== 'paid') {
-            throw new Exception('Payment not completed.');
+            throw new \Exception('Payment not completed.');
         }
 
-        $booking = Booking::findOrFail($bookingId);
+        if (!$bookingId) {
+            throw new \Exception('Booking ID is missing.');
+        }
 
-        if ($booking->status === 'confirmed') {
+        $booking = Booking::find($bookingId);
+
+        if (!$booking) {
+            throw new \Exception('Booking not found.');
+        }
+
+        if ($booking->status === BookingStatus::CONFIRMED->value) {
             return $booking;
         }
 
-        $booking->update(['status' => 'confirmed']);
-
+        $booking->update([
+            'status' => BookingStatus::CONFIRMED->value,
+        ]);
+        BookConfirmedJob::dispatch($booking);
         return $booking;
     }
 }

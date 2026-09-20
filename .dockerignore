@@ -1,0 +1,26 @@
+# Git
+.git
+.gitignore
+
+# Dependencies (بنخلي الكنترينر يحملهم بنفسه)
+/vendor
+/node_modules
+
+# Environment & Configs
+.env
+.env.example
+docker-compose.yml
+Dockerfile
+
+# Logs & Cache
+/storage/logs/*
+/bootstrap/cache/*
+
+# Frontend Assets (لو بتبنيها جوه الكنترينر)
+npm-debug.log
+yarn-error.log
+
+# Testing & Docs
+/tests
+phpunit.xml
+README.md

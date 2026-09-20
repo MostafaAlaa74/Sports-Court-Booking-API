@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\UserRoles;
 use App\Models\Review;
 use App\Models\User;
 
@@ -24,11 +25,11 @@ class ReviewPolicy
 
     public function update(User $user, Review $review): bool
     {
-        return $user->id === $review->user_id || $user->role === 'admin';
+        return $user->id === $review->user_id || $user->role === UserRoles::ADMIN->value;
     }
 
     public function delete(User $user, Review $review): bool
     {
-        return $user->id === $review->user_id || $user->role === 'admin';
+        return $user->id === $review->user_id || $user->role === UserRoles::ADMIN->value;
     }
 }
